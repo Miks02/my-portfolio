@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
 import { getLang, useTranslations } from "../i18n/utils";
 
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
 ---
 
-<BaseLayout title={`${t("notFound.title")} — ${t("meta.title")}`}>
+<BaseLayout title={`${t("notFound.title")} | ${site.name}`}>
   <section class="mx-auto max-w-[1200px] px-6 pt-40 pb-32 md:px-12">
     <p class="font-mono text-[12px] tracking-[0.06em] text-accent uppercase md:text-[13px]">404</p>
     <h1 class="mt-5 text-[34px] leading-[1.05] font-semibold tracking-[-0.03em] md:text-[48px]">

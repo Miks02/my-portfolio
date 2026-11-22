@@ -1,4 +1,4 @@
-# CLAUDE.md — milan-portfolio
+# CLAUDE.md milan-portfolio
 
 Personal portfolio of **Milan Nikolić**, software engineer (Angular + ASP.NET Core) from Belgrade.
 A one-pager (Hero → Tech stack → About → Projects → Experience/Education → Contact) plus
@@ -141,7 +141,7 @@ export const collections = { projects, experience };
 
 ## SEO & meta
 
-- `BaseLayout` takes `title`, `description` and an optional `ogImage`. Default title: "Milan Nikolić — Software Engineer".
+- `BaseLayout` takes `title`, `description` and an optional `ogImage`. Default title: "Milan Nikolić | Software Engineer". No em dashes anywhere in copy.
 - Set `site: "[SITE_URL]"` in `astro.config.mjs`; sitemap, canonical and absolute OG URLs depend on it.
 - Include canonical, OG + Twitter tags, `theme-color` `#11161E`, `@astrojs/sitemap`, and a `public/robots.txt` that points to the sitemap.
 - Add JSON-LD `Person` on the home page (name, jobTitle, url, sameAs), using real data only.

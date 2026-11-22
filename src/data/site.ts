@@ -19,13 +19,13 @@ export const site = {
   techStack: [
     "Angular",
     "TypeScript",
+    "Tailwind",
     "C#",
     "ASP.NET Core",
     "Entity Framework Core",
-    "ASP.NET Identity",
-    "JWT",
-    "Domain-Driven Design",
-    "SQL",
+    "PostgreSQL",
+    "MySQL",
+    "SQL Server",
     "Git",
   ],
 } as const;

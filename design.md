@@ -1,4 +1,4 @@
-# design.md — visual spec
+# design.md visual spec
 
 Visual language and component specs for the portfolio. Read this before any UI work.
 
@@ -40,7 +40,7 @@ grep -rnE "purple|violet|indigo|bg-linear|bg-gradient|backdrop-blur|shadow-|roun
   --color-fg-soft: #E4E0D9;      /* lead paragraph */
   --color-muted: #A0A8B6;        /* body text */
   --color-subtle: #8F98A7;       /* tech lists */
-  --color-dim: #7D8696;          /* small mono labels — lowest allowed text contrast */
+  --color-dim: #7D8696;          /* small mono labels, lowest allowed text contrast */
   --color-accent: #F26B4A;       /* coral */
 
   --font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
@@ -128,7 +128,7 @@ Left: section label + H2. Right: lead paragraph, a second paragraph in `text-mut
 ### Projects
 
 - Header row: label + H2 on the left, a short note (max ~340px) on the right, hairline below.
-- `ProjectRow` text column: mono "01 — kind", H3, summary, a mono stack line in `text-subtle`, then links. "Live site ↗" has a 2px accent underline and "GitHub ↗" a 2px `line-strong` underline. "Case study →" appears only when the project has one.
+- `ProjectRow` text column: mono "01 / kind", H3, summary, a mono stack line in `text-subtle`, then links. "Live site ↗" has a 2px accent underline and "GitHub ↗" a 2px `line-strong` underline. "Case study →" appears only when the project has one.
 - `ProjectRow` screenshot column: a 16:10 frame, `bg-surface rounded-xs`. With no image, it shows a centered mono label like `[project screenshot]`.
 - Rows are separated by hairlines. On mobile the screenshot sits above the text.
 

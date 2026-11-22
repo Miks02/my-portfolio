@@ -8,7 +8,7 @@ export const defaultLang = "en" satisfies keyof typeof languages;
 
 export const ui = {
   en: {
-    "meta.title": "Milan Nikolić — Software Engineer",
+    "meta.title": "Milan Nikolić | Software Engineer",
     "meta.description":
       "Software engineer from Belgrade building web applications end to end with Angular and ASP.NET Core.",
     "meta.jobTitle": "Software Engineer",
@@ -65,7 +65,7 @@ export const ui = {
     "contact.label": "Contact",
     "contact.heading": "Have a role or a project in mind?",
     "contact.text":
-      "I'm looking for a full-time role — remote, or on-site if it means relocating. Email is the quickest way to reach me.",
+      "I'm looking for a full-time role, remote or on-site if it means relocating. Email is the quickest way to reach me.",
     "contact.github": "GitHub",
     "contact.linkedin": "LinkedIn",
     "contact.codewithmixx": "codewithmixx",

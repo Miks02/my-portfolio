@@ -12,7 +12,7 @@
   --color-fg-soft: #e4e0d9; /* lead paragraph */
   --color-muted: #a0a8b6; /* body text */
   --color-subtle: #8f98a7; /* tech lists */
-  --color-dim: #7d8696; /* small mono labels — lowest allowed text contrast */
+  --color-dim: #7d8696; /* small mono labels, lowest allowed text contrast */
   --color-accent: #f26b4a; /* coral */
 
   /* Timeline-only */
