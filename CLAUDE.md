@@ -73,7 +73,7 @@ src/
   styles/
     global.css
 public/
-  resume.pdf  favicon.svg  og.png  robots.txt  _headers
+  resume.pdf  og.png (1200×630)  favicon.svg / favicon.ico / apple-touch-icon.png (navy circle, coral MN)  robots.txt  _headers
 ```
 
 Rules:
@@ -155,7 +155,7 @@ export const collections = { projects, experience };
 ## SEO & meta
 
 - `BaseLayout` takes `title`, `description` and an optional `ogImage`. Default title: "Milan Nikolić | Software Engineer". No em dashes anywhere in copy.
-- `site` in `astro.config.mjs` is `https://example.com` until the domain is known (`[SITE_URL]`); sitemap, canonical, absolute OG URLs and `public/robots.txt` depend on it. `BaseLayout` falls back to the request URL if `site` is ever missing.
+- Production domain: **https://milannikolic.dev** (`site` in `astro.config.mjs`). Sitemap, canonical, absolute OG URLs and `public/robots.txt` depend on it. `BaseLayout` falls back to the request URL if `site` is ever missing.
 - Include canonical, OG + Twitter tags, `theme-color` `#11161E`, `@astrojs/sitemap`, and a `public/robots.txt` that points to the sitemap.
 - Add JSON-LD `Person` on the home page (name, jobTitle, url, sameAs), using real data only.
 
@@ -198,8 +198,5 @@ export const collections = { projects, experience };
 
 ## Open placeholders
 
-- `[SITE_URL]` (production domain): `astro.config.mjs` and `public/robots.txt`
 - `public/resume.pdf` (the hero Resume button 404s until it exists)
-- `public/og.png` (1200×630)
-- Favicon (`public/favicon.svg` / `favicon.ico` are still the Astro defaults)
 - Case studies: none written yet (`caseStudy: false` on both projects)
