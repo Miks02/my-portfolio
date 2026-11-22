@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Footer from "../components/layout/Footer.astro";
 import Navbar from "../components/layout/Navbar.astro";
 import SkipLink from "../components/layout/SkipLink.astro";
 import { getLang, useTranslations } from "../i18n/utils";
@@ -73,7 +74,7 @@ const ogImageUrl = new URL(ogImage, base);
     <main id="main">
       <slot />
     </main>
-    <!-- Footer goes here (next step). -->
+    <Footer />
     <script>
       import "../scripts/reveal.ts";
     </script>

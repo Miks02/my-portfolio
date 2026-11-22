@@ -1,0 +1,18 @@
+---
+import { site } from "../../data/site";
+import { getLang, useTranslations } from "../../i18n/utils";
+
+const t = useTranslations(getLang(Astro.currentLocale));
+
+// Static site: the year is set at build time, so it updates on the next deploy.
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div class="mx-auto flex max-w-[1200px] flex-wrap justify-between gap-4 px-6 py-7 font-mono text-[12px] text-dim md:px-12">
+    <span>
+      © {year} {site.name}
+    </span>
+    <span>{t("common.location")}</span>
+  </div>
+</footer>
