@@ -27,7 +27,7 @@ export const ui = {
 
     "hero.title": "Software Engineer",
     "hero.text":
-      "I build web applications end to end: Angular on the front, ASP.NET Core with a clean domain model behind it.",
+      "I build web applications end to end: Angular on the front, ASP.NET Core behind it.",
     "hero.cta": "Get in touch",
     "hero.resume": "Resume",
     "hero.portraitAlt": "Portrait of Milan Nikolić",
@@ -37,7 +37,7 @@ export const ui = {
     "about.label": "About",
     "about.heading": "Full stack, with the backend done properly.",
     "about.lead":
-      "I'm a software engineer from Belgrade working across the stack with Angular and ASP.NET Core. On the backend I structure code around the domain with DDD, and I handle auth with ASP.NET Identity and my own JWT + refresh-token flow — the same setup that runs in my production apps.",
+      "I'm a software engineer from Belgrade working across the stack with Angular and ASP.NET Core. I tend to structure code for maintainability every time, meaning that 90% of my projects are written with 'feature-first' or 'vertical slice' architecture. A perfect combination for solo apps.",
     "about.body":
       "I finished my BSc in Information Technology at ITS Belgrade in 2026 and I'm now doing a master's there. Alongside that I teach programming one-on-one to IT students through codewithmixx, which keeps me sharp on explaining why code is written the way it is.",
     "about.fact.basedIn.label": "Based in",
@@ -51,7 +51,8 @@ export const ui = {
 
     "projects.label": "Projects",
     "projects.heading": "Things I've built and shipped",
-    "projects.note": "Both are deployed and in use, built with the same Angular + .NET foundation.",
+    "projects.note":
+      "Both are deployed and in use, built with the same Angular + .NET foundation.",
     "projects.live": "Live site",
     "projects.repo": "GitHub",
     "projects.caseStudy": "Case study",
