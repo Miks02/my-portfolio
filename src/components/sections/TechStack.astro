@@ -1,0 +1,27 @@
+---
+import type { TechItem } from "../../data/site";
+import { techBrandColor, techIcon } from "../../data/techIcons";
+
+interface Props {
+  label: string;
+  items: readonly TechItem[];
+}
+
+const { label, items } = Astro.props;
+---
+
+<section aria-label={label} class="border-y border-line bg-ink-2">
+  <ul class="mx-auto flex max-w-[1200px] flex-wrap justify-center gap-x-2 gap-y-7 px-6 py-9 md:px-12 md:py-10 xl:justify-between xl:gap-x-6">
+    {items.map(({ name, icon }) => (
+      <li
+        class="flex w-[100px] flex-col items-center gap-3 text-center md:w-[124px] xl:w-auto"
+        style={`--tech-brand: ${techBrandColor(icon)}`}
+      >
+        <Fragment
+          set:html={techIcon(icon, "size-7 text-(--tech-brand) md:size-8")}
+        />
+        <span class="text-[13px] leading-[1.3] text-subtle">{name}</span>
+      </li>
+    ))}
+  </ul>
+</section>

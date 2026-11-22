@@ -1,5 +1,6 @@
 ---
 import Hero from "../components/sections/Hero.astro";
+import TechStack from "../components/sections/TechStack.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { isPlaceholder, site } from "../data/site";
 import { getLang, useTranslations } from "../i18n/utils";
@@ -32,4 +33,5 @@ const person = {
     resumeHref={site.resumeUrl}
     portraitAlt={t("hero.portraitAlt")}
   />
+  <TechStack label={t("stack.label")} items={site.techStack} />
 </BaseLayout>
