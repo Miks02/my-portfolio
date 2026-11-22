@@ -190,6 +190,7 @@ export const collections = { projects, experience };
 - Never invent content (features, dates, metrics). Use `[PLACEHOLDER]` and list it in the summary.
 - Check every component at 375px and at ≥ 1280px.
 - After changes, run `npm run check`, `npm run build` and the design lint from design.md.
+- Use Tailwind's canonical class names (what IntelliSense's "suggestCanonicalClasses" suggests): spacing-scale values like `max-w-300`, `pt-18`, `-left-26` instead of `max-w-[1200px]`, `pt-[72px]`, `left-[-104px]`. Arbitrary values stay only where there's no scale equivalent (e.g. `text-[17px]`, `tracking-[-0.03em]`).
 - Commits use Conventional Commits (`feat():`, `fix():`, `style():`, `content():`, `chore():`). Only commit when asked.
 - If a decision here turns out to be wrong, propose an update to this file instead of quietly working around it.
 

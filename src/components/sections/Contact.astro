@@ -20,13 +20,13 @@ const [local, domain] = email.split("@");
 <section
   id="contact"
   aria-labelledby="contact-heading"
-  class="mx-auto max-w-[1200px] px-6 pt-20 pb-20 md:px-12 md:pt-[140px] md:pb-[120px]"
+  class="mx-auto max-w-300 px-6 pt-20 pb-20 md:px-12 md:pt-35 md:pb-30"
 >
   <div data-reveal>
     <SectionLabel index={index} label={label} />
     <h2
       id="contact-heading"
-      class="mt-5 max-w-[820px] text-[42px] leading-none font-semibold tracking-[-0.035em] md:text-[clamp(44px,5.6vw,76px)]"
+      class="mt-5 max-w-205 text-[42px] leading-none font-semibold tracking-[-0.035em] md:text-[clamp(44px,5.6vw,76px)]"
     >
       {heading}
     </h2>
@@ -34,12 +34,12 @@ const [local, domain] = email.split("@");
 
   <div class="mt-10 flex flex-col gap-10 md:mt-14 lg:flex-row lg:items-end lg:justify-between">
     <div class="min-w-0">
-      <p class="max-w-[480px] text-[17px] leading-[1.65] text-muted md:text-[18px]">
+      <p class="max-w-120 text-[17px] leading-[1.65] text-muted md:text-[18px]">
         {text}
       </p>
       <a
         href={`mailto:${email}`}
-        class="mt-7 inline-block max-w-full border-b-2 border-accent pb-1.5 text-[clamp(15px,5.2vw,22px)] font-medium tracking-[-0.015em] [overflow-wrap:anywhere] text-fg transition-colors duration-200 hover:text-accent md:text-[30px]"
+        class="mt-7 inline-block max-w-full border-b-2 border-accent pb-1.5 text-[clamp(15px,5.2vw,22px)] font-medium tracking-[-0.015em] wrap-anywhere text-fg transition-colors duration-200 hover:text-accent md:text-[30px]"
       >
         {local}<wbr />@{domain}
       </a>

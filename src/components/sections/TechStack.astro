@@ -38,10 +38,10 @@ const { label, items } = Astro.props;
   </div>
 
   <!-- Tablet and up: the static grid (5 + 5 on tablet, one row from xl). -->
-  <ul class="mx-auto hidden max-w-[1200px] flex-wrap justify-center gap-x-2 gap-y-7 px-12 py-10 md:flex xl:justify-between xl:gap-x-6">
+  <ul class="mx-auto hidden max-w-300 flex-wrap justify-center gap-x-2 gap-y-7 px-12 py-10 md:flex xl:justify-between xl:gap-x-6">
     {items.map(({ name, icon }) => (
       <li
-        class="flex w-[124px] flex-col items-center gap-3 text-center xl:w-auto"
+        class="flex w-31 flex-col items-center gap-3 text-center xl:w-auto"
         style={`--tech-brand: ${techBrandColor(icon)}`}
       >
         <Fragment set:html={techIcon(icon, "size-8 text-(--tech-brand)")} />

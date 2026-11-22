@@ -37,17 +37,17 @@ const blank =
 -->
 <div
   class:list={[
-    "relative h-[380px] w-[340px] shrink-0 self-center md:h-[600px] md:w-[540px] lg:self-end",
+    "relative h-95 w-85 shrink-0 self-center md:h-150 md:w-135 lg:self-end",
     className,
   ]}
 >
   <div
     aria-hidden="true"
-    class="portrait-glow absolute top-[8px] left-[-104px] size-[520px] rounded-full md:top-[23px] md:left-[-142px] md:size-[780px]"
+    class="portrait-glow absolute top-2 -left-26 size-130 rounded-full md:top-5.75 md:-left-35.5 md:size-195"
   ></div>
   <div
     aria-hidden="true"
-    class="absolute top-[124px] left-[31px] size-[250px] rounded-full border-[17px] border-accent md:top-[190px] md:left-[48px] md:size-[400px] md:border-[26px]"
+    class="absolute top-31 left-7.75 size-62.5 rounded-full border-17 border-accent md:top-47.5 md:left-12 md:size-100 md:border-26"
   ></div>
   <picture>
     <source
@@ -70,7 +70,7 @@ const blank =
       loading={priority ? "eager" : "lazy"}
       fetchpriority={priority ? "high" : "auto"}
       decoding="async"
-      class="portrait-photo absolute bottom-0 left-0 block h-auto w-[340px] contrast-[1.04] grayscale md:w-[540px]"
+      class="portrait-photo absolute bottom-0 left-0 block h-auto w-85 contrast-[1.04] grayscale md:w-135"
     />
   </picture>
 </div>
