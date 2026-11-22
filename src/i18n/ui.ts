@@ -35,9 +35,9 @@ export const ui = {
     "stack.label": "Tech stack",
 
     "about.label": "About",
-    "about.heading": "Full stack, with the backend done properly.",
+    "about.heading": "One developer, the whole stack.",
     "about.lead":
-      "I'm a software engineer from Belgrade working across the stack with Angular and ASP.NET Core. I structure code for maintainability: most of my projects use a feature-first or vertical slice architecture, which suits solo apps well.",
+      "I'm a software engineer from Belgrade who works across the whole stack with Angular and ASP.NET Core. Most of my projects use a feature-first or vertical slice architecture. It keeps the code easy to maintain, and it's a great fit for apps I build on my own.",
     "about.body":
       "I finished my Bachelor's degree in IT Engineering at ITS Belgrade in 2026 and I'm now doing a master's there. Alongside that I teach programming to other IT students via my own platform CodeWithMixx, which keeps me sharp on explaining why code is written the way it is.",
     "about.fact.basedIn.label": "Based in",
