@@ -1,0 +1,34 @@
+[
+  {
+    "id": "masters-its",
+    "period": "Nov 2026 — present",
+    "title": "Master's studies, Information Technology",
+    "org": "ITS Belgrade",
+    "current": true,
+    "order": 1
+  },
+  {
+    "id": "tutor-codewithmixx",
+    "period": "Ongoing",
+    "title": "Programming tutor",
+    "org": "codewithmixx",
+    "detail": "One-on-one online lessons for IT students",
+    "order": 2
+  },
+  {
+    "id": "bsc-its",
+    "period": "Oct 2026",
+    "title": "BSc, Information Technology",
+    "org": "ITS Belgrade",
+    "detail": "Thesis graded 10",
+    "order": 3
+  },
+  {
+    "id": "intern-comtrade",
+    "period": "May — Jun 2025",
+    "title": "Software Engineering Intern",
+    "org": "Comtrade",
+    "detail": "Angular + .NET",
+    "order": 4
+  }
+]
