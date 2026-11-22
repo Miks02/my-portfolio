@@ -1,0 +1,12 @@
+// Cloudflare Workers config: serves the static Astro build (dist/) as Worker assets.
+// https://developers.cloudflare.com/workers/static-assets/
+{
+  // Must match the Worker's name in the Cloudflare dashboard.
+  "name": "my-portfolio",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    // Unknown URLs get dist/404.html (from src/pages/404.astro) with a 404 status.
+    "not_found_handling": "404-page"
+  }
+}

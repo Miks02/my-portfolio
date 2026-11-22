@@ -2,7 +2,7 @@
 
 Personal portfolio of **Milan Nikolić**, software engineer (Angular + ASP.NET Core) from Belgrade.
 A one-pager (Hero → Tech stack → About → Projects → Other projects → Experience/Education → Contact) plus
-case-study pages per project. Static site deployed to Cloudflare Pages.
+case-study pages per project. Static site deployed to Cloudflare Workers (static assets) at https://milannikolic.dev.
 
 Visual spec, tokens and component specs: @design.md
 
@@ -166,11 +166,16 @@ export const collections = { projects, experience };
 - Project covers are UI screenshots: WebP at `quality={90}`, widths up to the original, accurate `sizes` (including the 3xl zoom). Low quality or upscaling makes their text look pixelated.
 - Load only the font weights that are used.
 
-## Deployment (Cloudflare Pages)
+## Deployment (Cloudflare Workers, static assets)
 
-- Git integration. Build command `npm run build`, output directory `dist`, env `NODE_VERSION=22`.
-- Static output. Don't add the `@astrojs/cloudflare` adapter unless server features are needed.
-- `public/_headers`:
+- Hosted as the Worker **`my-portfolio`** with Git integration (Workers Builds): every push to `main` runs `npm run build` and deploys `dist/`. Node 22 or newer.
+- Config lives in `wrangler.jsonc` at the repo root:
+  - `name` must match the Worker's name in the dashboard (`my-portfolio`), or a new Worker gets created instead of updating this one.
+  - `assets.directory` is `./dist`.
+  - `assets.not_found_handling: "404-page"` makes unknown URLs return `dist/404.html` (from `src/pages/404.astro`) with a 404 status. Without it they return an empty 404.
+- Static output only. No Worker script (`main`) and no `@astrojs/cloudflare` adapter unless server features are needed.
+- Domains (Worker → Settings → Domains & Routes): `milannikolic.dev` and `www.milannikolic.dev` are Custom Domains; the DNS zone is on Cloudflare. The canonical host is `milannikolic.dev`; `www` should 301 to it via a Cloudflare Redirect Rule ("Redirect from WWW to root"), which is dashboard config, not code. The `*.workers.dev` URL can stay on; canonical tags point to the domain.
+- `public/_headers` (Workers static assets apply it):
   ```
   /_astro/*
     Cache-Control: public, max-age=31536000, immutable
@@ -179,8 +184,8 @@ export const collections = { projects, experience };
     Referrer-Policy: strict-origin-when-cross-origin
     X-Frame-Options: DENY
   ```
-- 404 is handled by `src/pages/404.astro`, which builds to `404.html`.
-- Test deploys on Vercel also work with zero config (framework preset Astro, output `dist`, Node 22.x). Vercel ignores `public/_headers` (headers would go in `vercel.json`), which is fine for a test.
+- After deploying, check: home 200, `/og.png` 200, an unknown URL renders the 404 page, `og:image` points to `https://milannikolic.dev/og.png`. To refresh link previews, use LinkedIn's Post Inspector.
+- Test deploys on Vercel also work with zero config (framework preset Astro, output `dist`). Vercel ignores `public/_headers` and `wrangler.jsonc`.
 
 ---
 
