@@ -1,36 +1,78 @@
 ---
-import { Picture } from "astro:assets";
+import { getImage } from "astro:assets";
 import portrait from "../../assets/milan.png";
 
 interface Props {
   alt: string;
+  /**
+   * Media query for the screens where this portrait is shown (e.g. "(min-width: 64rem)").
+   * The photo is only downloaded when it matches; elsewhere the <img> keeps a 1×1 placeholder.
+   * Pair it with a `class` that hides the component on the other screens.
+   */
+  media: string;
+  /** Above the fold: eager + high fetch priority. Otherwise lazy. */
+  priority?: boolean;
+  class?: string;
 }
 
-const { alt } = Astro.props;
+const { alt, media, priority = false, class: className } = Astro.props;
+
+const widths = [340, 540, 720, 1024];
+const sizes = "(min-width: 2560px) 720px, (min-width: 768px) 540px, 340px";
+
+const [avif, webp] = await Promise.all(
+  (["avif", "webp"] as const).map((format) =>
+    getImage({ src: portrait, widths, format }),
+  ),
+);
+
+// Transparent 1×1 GIF: what the <img> shows when `media` doesn't match, so nothing is downloaded.
+const blank =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 ---
 
-<!-- Centered via self-center (works even when the 340px box is wider than a 375px viewport). Mobile box 340×380, desktop box 540×600. Stacking: glow → ring → photo. -->
-<div class="relative h-[380px] w-[340px] shrink-0 self-center md:h-[600px] md:w-[540px] lg:self-end">
+<!--
+  Centered via self-center (works even when the 340px box is wider than a 375px viewport).
+  Mobile box 340×380, desktop box 540×600. Stacking: glow → ring → photo.
+-->
+<div
+  class:list={[
+    "relative h-[380px] w-[340px] shrink-0 self-center md:h-[600px] md:w-[540px] lg:self-end",
+    className,
+  ]}
+>
   <div
     aria-hidden="true"
     class="portrait-glow absolute top-[8px] left-[-104px] size-[520px] rounded-full md:top-[23px] md:left-[-142px] md:size-[780px]"
-  >
-  </div>
+  ></div>
   <div
     aria-hidden="true"
     class="absolute top-[124px] left-[31px] size-[250px] rounded-full border-[17px] border-accent md:top-[190px] md:left-[48px] md:size-[400px] md:border-[26px]"
-  >
-  </div>
-  <Picture
-    src={portrait}
-    alt={alt}
-    formats={["avif", "webp"]}
-    widths={[340, 540, 720, 1024]}
-    sizes="(min-width: 2560px) 720px, (min-width: 768px) 540px, 340px"
-    loading="eager"
-    fetchpriority="high"
-    class="portrait-photo absolute bottom-0 left-0 block h-auto w-[340px] contrast-[1.04] grayscale md:w-[540px]"
-  />
+  ></div>
+  <picture>
+    <source
+      media={media}
+      type="image/avif"
+      srcset={avif.srcSet.attribute}
+      sizes={sizes}
+    />
+    <source
+      media={media}
+      type="image/webp"
+      srcset={webp.srcSet.attribute}
+      sizes={sizes}
+    />
+    <img
+      src={blank}
+      alt={alt}
+      width={portrait.width}
+      height={portrait.height}
+      loading={priority ? "eager" : "lazy"}
+      fetchpriority={priority ? "high" : "auto"}
+      decoding="async"
+      class="portrait-photo absolute bottom-0 left-0 block h-auto w-[340px] contrast-[1.04] grayscale md:w-[540px]"
+    />
+  </picture>
 </div>
 
 <style is:global>
@@ -46,7 +88,19 @@ const { alt } = Astro.props;
 
   /* Design exception: edge mask on the portrait (the PNG is cut at the shoulders). */
   .portrait-photo {
-    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
   }
 </style>

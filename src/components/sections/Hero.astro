@@ -96,6 +96,12 @@ const nameLines = name.split(" ");
       </div>
     </div>
 
-    <PortraitRing alt={portraitAlt} />
+    <!-- Two-column layout only (lg+). Below lg the portrait is shown in About instead. -->
+    <PortraitRing
+      alt={portraitAlt}
+      media="(min-width: 64rem)"
+      priority
+      class="hidden lg:block"
+    />
   </div>
 </section>

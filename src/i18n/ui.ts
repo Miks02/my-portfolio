@@ -27,7 +27,7 @@ export const ui = {
 
     "hero.title": "Software Engineer",
     "hero.text":
-      "I build web applications end to end: Angular on the front, ASP.NET Core behind it.",
+      "I build full-stack web application with Angular and ASP.NET Core. Sometimes i use traditional stacks like ASP.NET Razor Pages or MVC",
     "hero.cta": "Get in touch",
     "hero.resume": "Resume",
     "hero.portraitAlt": "Portrait of Milan Nikolić",

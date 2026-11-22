@@ -1,5 +1,6 @@
 ---
 import FactList, { type Fact } from "../ui/FactList.astro";
+import PortraitRing from "../ui/PortraitRing.astro";
 import SectionLabel from "../ui/SectionLabel.astro";
 
 interface Props {
@@ -9,15 +10,17 @@ interface Props {
   lead: string;
   body: string;
   facts: readonly Fact[];
+  /** Alt text for the portrait, which shows here only below lg (the hero shows it from lg up). */
+  portraitAlt: string;
 }
 
-const { index, label, heading, lead, body, facts } = Astro.props;
+const { index, label, heading, lead, body, facts, portraitAlt } = Astro.props;
 ---
 
 <section
   id="about"
   aria-labelledby="about-heading"
-  class="mx-auto flex max-w-300 flex-col gap-10 px-6 pt-20 pb-16 md:px-12 md:pt-35 md:pb-30 lg:flex-row lg:gap-20"
+  class="mx-auto flex max-w-300 flex-col gap-10 overflow-x-clip px-6 pt-20 pb-16 md:px-12 md:pt-35 md:pb-30 lg:flex-row lg:gap-20"
 >
   <header data-reveal class="min-w-0 lg:flex-1">
     <SectionLabel index={index} label={label} />
@@ -28,6 +31,11 @@ const { index, label, heading, lead, body, facts } = Astro.props;
       {heading}
     </h2>
   </header>
+
+  <!-- Below lg only: the hero drops the portrait there, so it lives here, resting on a hairline. -->
+  <div class="flex flex-col border-b border-line lg:hidden">
+    <PortraitRing alt={portraitAlt} media="(max-width: 63.999rem)" />
+  </div>
 
   <div class="min-w-0 lg:flex-[1.6]">
     <p class="text-[17px] leading-[1.65] text-fg-soft md:text-[20px]">{lead}</p>

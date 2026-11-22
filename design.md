@@ -98,7 +98,7 @@ grep -rnE "purple|violet|indigo|bg-linear|bg-gradient|backdrop-blur|shadow-|roun
 
 ### Hero
 
-Two columns on desktop: text (`flex-1`) and a portrait column 540px wide × 600px tall. On mobile they stack, text first and portrait below.
+Two columns on desktop: text (`flex-1`) and a portrait column 540px wide × 600px tall. On mobile they stack, text first and portrait below. Below lg the hero has no portrait at all (text only); the same `PortraitRing` is shown in About instead, between the H2 and the lead paragraph, centered and resting on a `border-line` hairline. `PortraitRing` takes a `media` query so each copy only downloads its photo on the screens where it's visible (the hero copy is `priority`, the About copy is lazy).
 
 Left column, top to bottom:
 - Mono label: 8px accent square + "Belgrade, Serbia"
