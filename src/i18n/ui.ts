@@ -52,14 +52,20 @@ export const ui = {
     "projects.label": "Projects",
     "projects.heading": "Things I've built and shipped",
     "projects.note":
-      "Both are deployed and in use, built with the same Angular + .NET foundation.",
+      "CodeWithMixx and MixxFit are deployed and in use, built on the same Angular + .NET foundation.",
     "projects.since": "Since",
+    "projects.legacy": "Legacy",
     "projects.stack": "Stack",
     "projects.live": "Live site",
     "projects.repo": "GitHub",
     "projects.caseStudy": "Case study",
     "projects.screenshot": "{title} screenshot",
     "projects.back": "All projects",
+
+    "otherProjects.label": "Other projects",
+    "otherProjects.heading": "More things I've built",
+    "otherProjects.note":
+      "These are the projects that i used on to work while i was studying for my bachelor's degree. With Flower Shop being the most recent one.",
 
     "experience.label": "Experience & Education",
     "experience.heading": "Where I've been learning and working",

@@ -1,0 +1,41 @@
+---
+interface Props {
+  index: number;
+  title: string;
+  kind: string;
+  summary: string;
+  stack: readonly string[];
+  since?: string;
+  liveUrl?: string;
+  repoUrl?: string;
+  caseStudyHref?: string;
+  cover?: ImageMetadata;
+  coverAlt?: string;
+  labels: {
+    since: string;
+    stack: string;
+    live: string;
+    repo: string;
+    caseStudy: string;
+    screenshot: string;
+  };
+}
+
+const {
+  index,
+  title,
+  kind,
+  summary,
+  stack,
+  since,
+  liveUrl,
+  repoUrl,
+  caseStudyHref,
+  cover,
+  coverAlt,
+  labels,
+} = Astro.props;
+---
+
+
+<div>kurac</div>

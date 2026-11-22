@@ -1,7 +1,7 @@
 # CLAUDE.md milan-portfolio
 
 Personal portfolio of **Milan Nikolić**, software engineer (Angular + ASP.NET Core) from Belgrade.
-A one-pager (Hero → Tech stack → About → Projects → Experience/Education → Contact) plus
+A one-pager (Hero → Tech stack → About → Projects → Other projects → Experience/Education → Contact) plus
 case-study pages per project. Static site deployed to Cloudflare Pages.
 
 Visual spec, tokens and component specs: @design.md
@@ -43,15 +43,17 @@ src/
   assets/
     milan.png                 # transparent B&W portrait (used via astro:assets)
     projects/*.png            # project covers (same size for all, currently 1914×965)
+    projects/other/*.png      # covers for the Other projects cards
   components/
     layout/   Navbar.astro  Footer.astro  SkipLink.astro
-    sections/ Hero.astro  TechStack.astro  About.astro  Projects.astro  Experience.astro  Contact.astro
+    sections/ Hero.astro  TechStack.astro  About.astro  Projects.astro  OtherProjects.astro  Experience.astro  Contact.astro
     ui/       Button.astro  TextLink.astro  SectionLabel.astro  PortraitRing.astro
-              ProjectRow.astro  TimelineItem.astro  FactList.astro
+              ProjectRow.astro  OtherProjectCard.astro  TimelineItem.astro  FactList.astro
   content/
     projects/en/codewithmixx.md   # frontmatter = card data, body = case study
     projects/en/mixxfit.md
     experience/en.json
+    other-projects/en.json        # cards for older/smaller projects (title, summary, stack, repoUrl, cover)
   content.config.ts
   data/
     site.ts                   # non-translatable: name, email, URLs, socials, tech stack list, isPlaceholder()

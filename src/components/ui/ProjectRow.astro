@@ -11,6 +11,8 @@ interface Props {
   stack: readonly string[];
   /** Project start, e.g. "Dec 2025". Hidden when missing. */
   since?: string;
+  /** Older version, no longer in use: adds a "Legacy" marker next to the kind. */
+  legacy?: boolean;
   liveUrl?: string;
   repoUrl?: string;
   /** Case-study URL; omitted when the project has none. */
@@ -19,6 +21,7 @@ interface Props {
   coverAlt?: string;
   labels: {
     since: string;
+    legacy: string;
     stack: string;
     live: string;
     repo: string;
@@ -35,6 +38,7 @@ const {
   summary,
   stack,
   since,
+  legacy = false,
   liveUrl,
   repoUrl,
   caseStudyHref,
@@ -64,6 +68,7 @@ const imageProps = cover && {
   <div class="flex min-w-0 flex-col lg:flex-1">
     <p class="font-mono text-[12px] text-dim md:text-[13px]">
       {number} / {kind}
+      {legacy && <span class="text-muted uppercase"> · {labels.legacy}</span>}
     </p>
     <h3 class="mt-4 text-[30px] leading-[1.1] font-semibold tracking-tight md:text-[40px]">
       {title}

@@ -17,6 +17,8 @@ const projects = defineCollection({
       coverAlt: z.string().optional(),
       /** Project start, shown as "Since …" (e.g. "Dec 2025"). */
       since: z.string().optional(),
+      /** An older version that is no longer in use; shown with a "Legacy" marker. */
+      legacy: z.boolean().default(false),
       caseStudy: z.boolean().default(false),
     }),
 });
@@ -34,4 +36,20 @@ const experience = defineCollection({
   }),
 });
 
-export const collections = { projects, experience };
+// Smaller/older projects shown as cards under the main projects. `cover` is relative to the JSON file.
+const otherProjects = defineCollection({
+  loader: file("./src/content/other-projects/en.json"),
+  schema: ({ image }) =>
+    z.object({
+      id: z.string(),
+      order: z.number(),
+      title: z.string(),
+      since: z.string().optional(),
+      summary: z.string(),
+      stack: z.array(z.string()),
+      repoUrl: z.url().optional(),
+      cover: image().optional(),
+    }),
+});
+
+export const collections = { projects, experience, otherProjects };

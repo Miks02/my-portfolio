@@ -1,0 +1,87 @@
+[
+  {
+    "id": "flower-shop",
+    "order": 1,
+    "title": "Flower Shop",
+    "since": "Nov 2025",
+    "summary": "An e-commerce app for a flower delivery business, built on Clean Architecture with CQRS. Admins, deliverers, customers and guests each get their own tools, from catalog management and delivery assignment to order tracking, loyalty points and ratings.",
+    "stack": [
+      "ASP.NET Core MVC",
+      "EF Core",
+      "HTMX",
+      "SQL Server"
+    ],
+    "repoUrl": "https://github.com/Miks02/flower_shop_ecommerce_app",
+    "cover": "../../assets/projects/other/flower_shop.png"
+  },
+  {
+    "id": "dental-clinic",
+    "order": 2,
+    "title": "Dental clinic management system",
+    "since": "Oct 2025",
+    "summary": "A management system for a dental clinic with separate roles for administrators, dentists and nurses. It covers patient records, appointment scheduling with dentist availability, a service catalog with prices and durations, staff work schedules and reports on performed services.",
+    "stack": [
+      "ASP.NET Core MVC",
+      "EF Core",
+      "SQL Server"
+    ],
+    "repoUrl": "https://github.com/Miks02/Dentistry-Management-Web-App",
+    "cover": "../../assets/projects/other/dental_clinic.png"
+  },
+  {
+    "id": "cinema",
+    "order": 3,
+    "title": "Cinema management system",
+    "since": "Sep 2025",
+    "summary": "A cinema management system inspired by Cineplexx. Admins plan screenings and design hall seat layouts with VIP zones, staff handle reservations at the counter, and users pick seats on a visual hall map, book tickets with simulated payment and rate the movies they've seen.",
+    "stack": [
+      "ASP.NET Core MVC",
+      "EF Core",
+      "SQL Server"
+    ],
+    "repoUrl": "https://github.com/Miks02/cinema-web-app",
+    "cover": "../../assets/projects/other/cinema.png"
+  },
+  {
+    "id": "sunglasses-shop",
+    "order": 4,
+    "title": "Sunglasses shop",
+    "since": "Aug 2025",
+    "summary": "A plain and simple e-commerce app in ASP.NET MVC with a cart, checkout, order tracking, reviews, ratings and a simple ticket system.",
+    "stack": [
+      "ASP.NET Core",
+      "MVC",
+      "SQL Server"
+    ],
+    "repoUrl": "https://github.com/Miks02/sunglasses-app-web-app",
+    "cover": "../../assets/projects/other/sunglasses.png"
+  },
+  {
+    "id": "catering",
+    "order": 5,
+    "title": "Catering service",
+    "since": "Oct 2025",
+    "summary": "My only project in Spring Boot and Thymeleaf, built to look like a full-fledged website with a simulated cart and checkout.",
+    "stack": [
+      "Java",
+      "Spring Boot",
+      "MySQL"
+    ],
+    "repoUrl": "https://github.com/Miks02/catering-service-web-app",
+    "cover": "../../assets/projects/other/catering.png"
+  },
+  {
+    "id": "znamo-redesign",
+    "order": 6,
+    "title": "ZNAMO redesign",
+    "since": "Jun 2025",
+    "summary": "A redesign of the existing website of the company ZNAMO, with Laravel on the backend and plain TypeScript and SCSS on the frontend.",
+    "stack": [
+      "Laravel",
+      "TypeScript",
+      "MySQL"
+    ],
+    "repoUrl": "https://github.com/Miks02/znamo-redesign",
+    "cover": "../../assets/projects/other/znamo.png"
+  }
+]

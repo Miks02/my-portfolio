@@ -7,8 +7,13 @@ import Projects from "../components/sections/Projects.astro";
 import TechStack from "../components/sections/TechStack.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { isPlaceholder, site } from "../data/site";
-import { getExperience, getProjects } from "../data/collections";
+import {
+  getExperience,
+  getOtherProjects,
+  getProjects,
+} from "../data/collections";
 import { getLang, localizePath, useTranslations } from "../i18n/utils";
+import OtherProjects from "../components/sections/OtherProjects.astro";
 
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
@@ -22,6 +27,7 @@ const projects = (await getProjects(lang)).map(({ slug, data }) => ({
   summary: data.summary,
   stack: data.stack,
   since: data.since,
+  legacy: data.legacy,
   liveUrl: data.liveUrl,
   repoUrl: data.repoUrl,
   caseStudyHref: data.caseStudy
@@ -31,6 +37,7 @@ const projects = (await getProjects(lang)).map(({ slug, data }) => ({
   coverAlt: data.coverAlt,
   labels: {
     since: t("projects.since"),
+    legacy: t("projects.legacy"),
     stack: t("projects.stack"),
     live: t("projects.live"),
     repo: t("projects.repo"),
@@ -53,6 +60,16 @@ const contactLinks = [
   { label: t("contact.linkedin"), href: site.socials.linkedin },
   { label: t("contact.codewithmixx"), href: site.socials.codewithmixx },
 ].filter(({ href }) => !isPlaceholder(href));
+
+// Plain data for the cards; the section and card take exactly these fields.
+const otherProjects = (await getOtherProjects(lang)).map(({ data }) => ({
+  title: data.title,
+  since: data.since,
+  summary: data.summary,
+  stack: data.stack,
+  repoUrl: data.repoUrl,
+  cover: data.cover,
+}));
 
 const person = {
   "@context": "https://schema.org",
@@ -110,14 +127,23 @@ const person = {
     note={t("projects.note")}
     projects={projects}
   />
-  <Experience
+  <OtherProjects
     index={3}
+    label={t("otherProjects.label")}
+    heading={t("otherProjects.heading")}
+    note={t("otherProjects.note")}
+    repoLabel={t("projects.repo")}
+    sinceLabel={t("projects.since")}
+    projects={otherProjects}
+  />
+  <Experience
+    index={4}
     label={t("experience.label")}
     heading={t("experience.heading")}
     items={experience}
   />
   <Contact
-    index={4}
+    index={5}
     label={t("contact.label")}
     heading={t("contact.heading")}
     text={t("contact.text")}

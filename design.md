@@ -141,10 +141,17 @@ Left: section label + H2. Right: lead paragraph, a second paragraph in `text-mut
 ### Projects
 
 - Header row: label + H2 on the left, a short note (max ~340px) on the right, hairline below.
-- `ProjectRow` text column: mono "01 / kind", H3, summary. Nothing else.
+- `ProjectRow` text column: mono "01 / kind", H3, summary. Nothing else. A project with `legacy: true` (an older version no longer in use) gets " · LEGACY" after the kind, uppercase `text-muted`; no badge or chip.
 - `ProjectRow` card (wide column): `rounded-md border border-line bg-ink-2`, `overflow-hidden`. Top: the cover, flush with the card edges, keeping its own aspect ratio (no `object-cover`; covers are WebP at quality 90 with widths up to the original; all covers the same size, currently 1914×965). With `liveUrl` the cover links to the live site (new tab, `hover:opacity-70 active:scale-95`). With no cover, a 16:10 `bg-surface` frame with a centered mono label like `[CodeWithMixx screenshot]`.
 - Below the cover, after a hairline: a `<dl>` with "Since" (`since` from the frontmatter, e.g. `Dec 2025`; hidden when missing) and "Stack" (mono, `text-subtle`, ` · `-separated), labels mono 12px uppercase `text-dim`; side by side from `sm`. Then a hairline and the links: "Live site ↗" with a 2px accent underline, "GitHub ↗" with a 2px `line-strong` underline, "Case study →" only when the project has one.
 - Rows are separated by hairlines. On mobile the text comes first and the card below it.
+
+### Other projects
+
+Section `03 / OTHER PROJECTS`, right after Projects, on `ink` (no top padding; Projects' bottom padding separates them). Header row like Projects (label + H2 left, note right, hairline below).
+- Cards in a grid: 1 column, 2 from md, 3 from lg, 24px gap.
+- Card: `rounded-md border border-line bg-ink-2`, `overflow-hidden`. Cover on top in a 2:1 frame (`object-cover object-top`; the old screenshots are ~1915×915, so the crop is a few px). Then, after a hairline: "Since Nov 2025" (mono 12px uppercase `text-dim`, hidden when `since` is missing), H3 19px semibold, summary 15px `text-muted`, mono 12px stack line (` · `-separated), and "GitHub ↗" (2px `line-strong` underline) pinned to the bottom so cards in a row line up.
+- No numbers and no live links (none of these are deployed).
 
 ### Experience & Education
 
