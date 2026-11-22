@@ -12,7 +12,8 @@ export default defineConfig({
     locales: ["en"],
     routing: { prefixDefaultLocale: false },
   },
-  integrations: [sitemap()],
+  // lastmod = build date, so search engines see when the site last changed.
+  integrations: [sitemap({ lastmod: new Date() })],
   vite: {
     plugins: [tailwindcss()],
   },
