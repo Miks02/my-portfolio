@@ -69,6 +69,7 @@ grep -rnE "purple|violet|indigo|bg-linear|bg-gradient|backdrop-blur|shadow-|roun
 ## Layout
 
 - Container: `max-w-[1200px] mx-auto px-6 md:px-12`.
+- Large screens: custom breakpoint `3xl` (`--breakpoint-3xl: 160rem`, 2560px). From there `html` gets `zoom: 1.3333` (2560 / 1920), so a 2K screen shows exactly the FullHD layout instead of a smaller-looking page. Components don't need their own `3xl:` overrides. Raster images must list the zoomed size in `sizes` (e.g. the portrait: `(min-width: 2560px) 720px`).
 - Vertical rhythm: about 120–140px between major sections on desktop and 64–80px on mobile.
 - Two-column sections (About, Experience) use a narrow left column (label + H2) and a wide right column (content) in roughly a 1 : 1.6 ratio, stacked on mobile.
 - Background bands: the tech-stack strip and the Experience section are full-bleed `bg-ink-2`. Everything else sits on `ink`.

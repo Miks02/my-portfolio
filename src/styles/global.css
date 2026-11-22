@@ -19,6 +19,9 @@
   --color-rule: #2c3441; /* experience timeline rule */
   --color-marker: #5a6475; /* inactive timeline marker border */
 
+  /* 2K (2560px+): the whole page is zoomed 4/3 so it looks like FullHD (1920px) instead of shrinking. */
+  --breakpoint-3xl: 160rem;
+
   --font-sans: "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
 }
@@ -27,6 +30,11 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 88px;
+
+    /* 2560 / 1920 = 4/3: a 2K screen shows exactly the FullHD layout, just sharper. */
+    @variant 3xl {
+      zoom: 1.3333;
+    }
   }
 
   body {
