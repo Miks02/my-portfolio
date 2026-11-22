@@ -13,7 +13,7 @@ Restrained, typographic, honest. One accent color, a lot of whitespace, a clear 
 - **Plain text over decoration.** Tech lists are text separated by ` · `. Don't use chips, logo icons, emoji, illustrations or decorative shapes. Exception: the tech-stack strip shows devicon logos in their brand colors (see below).
 - **Honest content.** No metrics, counters or claims that aren't in the content files. Missing data stays a `[PLACEHOLDER]`.
 - **Black-and-white portrait.** The photo is always `grayscale`. Color sits around it, never on it.
-- **Quiet motion.** Use a fade/rise on load (hero), on first scroll into view (section headers, project rows) and when the mobile menu opens, and nothing else. Respect `prefers-reduced-motion`.
+- **Quiet motion.** Use a fade/rise on load (hero), on first scroll into view (section headers, project rows), when the mobile menu opens, and the mobile tech-stack marquee, and nothing else. Respect `prefers-reduced-motion`.
 
 Design lint: run this before finishing UI work. It should return nothing unless an exception is commented.
 
@@ -131,7 +131,8 @@ Left column, top to bottom:
 - Logo: devicon SVG inlined at build time (`src/data/techIcons.ts`), original fills stripped, `fill="currentColor"`, colored with its brand color (`brand` in `techIcons.ts`, set as `--tech-brand` on the item), 28px (md 32px), `aria-hidden`.
 - Name: sans 13px, `text-subtle`, centered. No hover state.
 - This strip is the only place hues other than coral appear.
-- Layout: centered `flex-wrap` with fixed item widths (100px, md 124px), so 3 per row on mobile and 5 + 5 on tablet; one `justify-between` row from `xl`.
+- Mobile (< md): an endless marquee. The list is rendered twice side by side (the copy `aria-hidden`) and the track moves by -50% over 32s, linear, so the loop is seamless. Items are auto width with nowrap names, 40px apart. The edges fade out with a horizontal mask (same kind of exception as the portrait mask). Holding a finger on it pauses it. Under reduced motion it doesn't move: the copy is hidden and the list scrolls horizontally instead.
+- Tablet and up: a static centered `flex-wrap` with 124px items, so 5 + 5 on tablet; one `justify-between` row from `xl`.
 
 ### About
 

@@ -11,17 +11,99 @@ const { label, items } = Astro.props;
 ---
 
 <section aria-label={label} class="border-y border-line bg-ink-2">
-  <ul class="mx-auto flex max-w-[1200px] flex-wrap justify-center gap-x-2 gap-y-7 px-6 py-9 md:px-12 md:py-10 xl:justify-between xl:gap-x-6">
+  <!-- Mobile (< md): an endless marquee. The list is rendered twice; the copy is aria-hidden. -->
+  <div class="tech-marquee overflow-hidden py-8 md:hidden">
+    <div class="tech-track flex w-max">
+      {[false, true].map((isCopy) => (
+        <ul
+          class="flex shrink-0 gap-x-10 pr-10"
+          aria-hidden={isCopy ? "true" : undefined}
+        >
+          {items.map(({ name, icon }) => (
+            <li
+              class="flex flex-col items-center gap-3 text-center"
+              style={`--tech-brand: ${techBrandColor(icon)}`}
+            >
+              <Fragment
+                set:html={techIcon(icon, "size-7 text-(--tech-brand)")}
+              />
+              <span class="text-[13px] leading-[1.3] whitespace-nowrap text-subtle">
+                {name}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+
+  <!-- Tablet and up: the static grid (5 + 5 on tablet, one row from xl). -->
+  <ul class="mx-auto hidden max-w-[1200px] flex-wrap justify-center gap-x-2 gap-y-7 px-12 py-10 md:flex xl:justify-between xl:gap-x-6">
     {items.map(({ name, icon }) => (
       <li
-        class="flex w-[100px] flex-col items-center gap-3 text-center md:w-[124px] xl:w-auto"
+        class="flex w-[124px] flex-col items-center gap-3 text-center xl:w-auto"
         style={`--tech-brand: ${techBrandColor(icon)}`}
       >
-        <Fragment
-          set:html={techIcon(icon, "size-7 text-(--tech-brand) md:size-8")}
-        />
+        <Fragment set:html={techIcon(icon, "size-8 text-(--tech-brand)")} />
         <span class="text-[13px] leading-[1.3] text-subtle">{name}</span>
       </li>
     ))}
   </ul>
 </section>
+
+<style>
+  /* Design exception: the marquee edges fade out (mask only, like the portrait). */
+  .tech-marquee {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+  }
+
+  /* Two identical lists side by side: moving by -50% lands exactly on the copy, so the loop is seamless. */
+  .tech-track {
+    animation: tech-marquee 32s linear infinite;
+  }
+
+  /* Hold a finger on it to pause. */
+  .tech-marquee:active .tech-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes tech-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  /* Reduced motion: no movement; the first list becomes a normal horizontal scroll. */
+  @media (prefers-reduced-motion: reduce) {
+    .tech-marquee {
+      overflow-x: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .tech-track {
+      animation: none;
+      padding-inline: 1.5rem;
+    }
+
+    .tech-track > ul[aria-hidden] {
+      display: none;
+    }
+  }
+</style>
