@@ -13,12 +13,18 @@ if (header && sentinel && toggle && menu) {
   }).observe(sentinel);
 
   // --- Active section (home page only) ---
+  // A section belongs to the nav link with the same id, or to the one named in its
+  // `data-nav-section` attribute (e.g. Other projects → "projects").
   if (header.hasAttribute("data-track-sections")) {
     const links = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
     const ids = new Set([...links].map((link) => link.dataset.navLink));
-    const sections = [...ids]
-      .map((id) => (id ? document.getElementById(id) : null))
-      .filter((el): el is HTMLElement => el !== null);
+    const sections = [
+      ...[...ids].map((id) => (id ? document.getElementById(id) : null)),
+      ...document.querySelectorAll<HTMLElement>("[data-nav-section]"),
+    ].filter((el): el is HTMLElement => el !== null);
+
+    const navIdOf = (section: Element) =>
+      (section as HTMLElement).dataset.navSection ?? section.id;
 
     const setActive = (id: string | null) => {
       links.forEach((link) => {
@@ -27,16 +33,16 @@ if (header && sentinel && toggle && menu) {
       });
     };
 
-    const current = () =>
-      [...links].find((link) => link.hasAttribute("aria-current"))?.dataset.navLink ?? null;
-
-    // A section is active while it crosses a thin band in the middle of the viewport.
+    // Sections currently crossing a thin band in the middle of the viewport.
+    const inBand = new Set<Element>();
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id);
-          else if (entry.target.id === current()) setActive(null);
+          if (entry.isIntersecting) inBand.add(entry.target);
+          else inBand.delete(entry.target);
         }
+        const active = [...inBand].at(-1);
+        setActive(active ? navIdOf(active) : null);
       },
       { rootMargin: "-45% 0px -54% 0px" },
     );

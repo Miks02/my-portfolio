@@ -87,7 +87,7 @@ grep -rnE "purple|violet|indigo|bg-linear|bg-gradient|backdrop-blur|shadow-|roun
 **Desktop (≥ md):** a full-width bar, `fixed inset-x-0 top-0 z-50`, 72px tall.
 - Links: 15px semibold, `text-fg-soft/80 hover:text-fg`.
 - **At the top of the page:** transparent, no border. **After scrolling ~16px:** `bg-ink` plus `border-b border-line`, with a 200ms color transition. No blur, no shadow. An `IntersectionObserver` on a 1px sentinel at the top of `<body>` toggles `data-scrolled` on `<header>`.
-- **Active section** (home page only): an IntersectionObserver on the sections sets `aria-current="true"`. The active link is `text-fg` with a 2px accent underline.
+- **Active section** (home page only): an IntersectionObserver on the sections sets `aria-current="true"`. The active link is `text-fg` with a 2px accent underline. A section without its own link points to one with `data-nav-section` (Other projects has `data-nav-section="projects"`, so "Projects" stays lit there).
 
 **Mobile (< md):** a floating card, `fixed inset-x-3 top-3`, 60px tall, `rounded-xl` (12px) `border border-line-strong bg-ink`, always solid (no scroll state). Its inner padding lines the logo up with the 24px page gutter.
 - Menu button: 44×44, `rounded-lg` (8px) `border border-line bg-surface`, inline stroke SVG (hamburger ↔ X), `aria-label="Open menu" aria-expanded aria-controls="mobile-menu"`.

@@ -65,7 +65,7 @@ export const ui = {
     "otherProjects.label": "Other projects",
     "otherProjects.heading": "More things I've built",
     "otherProjects.note":
-      "These are the projects that i used on to work while i was studying for my bachelor's degree. With Flower Shop being the most recent one.",
+      "These are the projects that i used to work on while i was studying for my bachelor's degree. With Flower Shop being the most recent one.",
 
     "experience.label": "Experience & Education",
     "experience.heading": "Where I've been learning and working",
