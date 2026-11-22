@@ -1,0 +1,75 @@
+---
+import "../styles/global.css";
+import SkipLink from "../components/layout/SkipLink.astro";
+import { getLang, useTranslations } from "../i18n/utils";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path or absolute URL of the OG image (1200×630). */
+  ogImage?: string;
+  /** Structured data rendered as JSON-LD in <head>. */
+  jsonLd?: Record<string, unknown>;
+}
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const {
+  title = t("meta.title"),
+  description = t("meta.description"),
+  ogImage = "/og.png",
+  jsonLd,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#11161E" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={t("meta.title")} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <SkipLink label={t("a11y.skip")} />
+    <!-- Navbar goes here (next step). -->
+    <main id="main">
+      <slot />
+    </main>
+    <!-- Footer goes here (next step). -->
+    <script>
+      import "../scripts/reveal.ts";
+    </script>
+  </body>
+</html>

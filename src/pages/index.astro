@@ -1,11 +1,25 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { isPlaceholder, site } from "../data/site";
+import { getLang, useTranslations } from "../i18n/utils";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+// Only real profile URLs go into sameAs; placeholders are skipped until filled in.
+const sameAs = Object.values(site.socials).filter((url) => !isPlaceholder(url));
+
+const person = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: t("meta.jobTitle"),
+  url: Astro.site?.href,
+  sameAs,
+};
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout jsonLd={person}>
+  <!-- Temporary until the sections are built. -->
+  <h1 class="sr-only">{site.name}</h1>
+</BaseLayout>
