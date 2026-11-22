@@ -1,4 +1,5 @@
 ---
+import Hero from "../components/sections/Hero.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { isPlaceholder, site } from "../data/site";
 import { getLang, useTranslations } from "../i18n/utils";
@@ -19,7 +20,16 @@ const person = {
 };
 ---
 
-<BaseLayout jsonLd={person}>
-  <!-- Temporary until the sections are built. -->
-  <h1 class="sr-only">{site.name}</h1>
+<BaseLayout jsonLd={person} trackSections>
+  <Hero
+    name={site.name}
+    location={t("common.location")}
+    title={t("hero.title")}
+    text={t("hero.text")}
+    ctaLabel={t("hero.cta")}
+    ctaHref="#contact"
+    resumeLabel={t("hero.resume")}
+    resumeHref={site.resumeUrl}
+    portraitAlt={t("hero.portraitAlt")}
+  />
 </BaseLayout>

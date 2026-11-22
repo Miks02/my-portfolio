@@ -1,0 +1,52 @@
+---
+import { Picture } from "astro:assets";
+import portrait from "../../assets/milan.png";
+
+interface Props {
+  alt: string;
+}
+
+const { alt } = Astro.props;
+---
+
+<!-- Centered via self-center (works even when the 340px box is wider than a 375px viewport). Mobile box 340×380, desktop box 540×600. Stacking: glow → ring → photo. -->
+<div class="relative h-[380px] w-[340px] shrink-0 self-center md:h-[600px] md:w-[540px] lg:self-end">
+  <div
+    aria-hidden="true"
+    class="portrait-glow absolute top-[8px] left-[-104px] size-[520px] rounded-full md:top-[23px] md:left-[-142px] md:size-[780px]"
+  >
+  </div>
+  <div
+    aria-hidden="true"
+    class="absolute top-[124px] left-[31px] size-[250px] rounded-full border-[17px] border-accent md:top-[190px] md:left-[48px] md:size-[400px] md:border-[26px]"
+  >
+  </div>
+  <Picture
+    src={portrait}
+    alt={alt}
+    formats={["avif", "webp"]}
+    widths={[340, 540, 680, 1024]}
+    sizes="(min-width: 768px) 540px, 340px"
+    loading="eager"
+    fetchpriority="high"
+    class="portrait-photo absolute bottom-0 left-0 block h-auto w-[340px] contrast-[1.04] grayscale md:w-[540px]"
+  />
+</div>
+
+<style is:global>
+  /* Design exception: the hero glow (radial, ≤16% opacity). */
+  .portrait-glow {
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 16%, transparent) 0%,
+      color-mix(in srgb, var(--color-accent) 6%, transparent) 38%,
+      transparent 66%
+    );
+  }
+
+  /* Design exception: edge mask on the portrait (the PNG is cut at the shoulders). */
+  .portrait-photo {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  }
+</style>

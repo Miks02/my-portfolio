@@ -1,0 +1,28 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "secondary";
+  /** Opens in a new tab with rel="noopener noreferrer". */
+  newTab?: boolean;
+  class?: string;
+}
+
+const { href, variant = "primary", newTab = false, class: className } = Astro.props;
+
+const variants = {
+  primary: "bg-accent font-semibold text-ink hover:brightness-108",
+  secondary: "border border-line-strong font-medium text-fg-soft hover:border-fg hover:text-fg",
+} as const;
+---
+
+<a
+  href={href}
+  class:list={[
+    "inline-flex min-h-12 items-center justify-center gap-2.5 rounded-xs px-[26px] py-[15px] text-[16px] transition-colors duration-200",
+    variants[variant],
+    className,
+  ]}
+  {...newTab && { target: "_blank", rel: "noopener noreferrer" }}
+>
+  <slot />
+</a>
