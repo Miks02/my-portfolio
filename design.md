@@ -10,7 +10,7 @@ Restrained, typographic, honest. One accent color, a lot of whitespace, a clear 
 - **Flat surfaces.** No gradient backgrounds, gradient text, shadows, blur or glass effects. There are two exceptions: the hero glow (radial, ≤16% opacity) and the edge mask on the portrait.
 - **Small radii.** Buttons and frames use `rounded-xs` (2px) or no radius. `rounded-full` is only for the ring and the glow. Nothing is pill-shaped.
 - **Few borders.** Separate content with whitespace and single 1px hairlines (`border-line`). Don't box every element, don't nest cards, and don't use bento grids.
-- **Plain text over decoration.** Tech lists are text separated by ` · `. Don't use chips, logo icons, emoji, illustrations or decorative shapes.
+- **Plain text over decoration.** Tech lists are text separated by ` · `. Don't use chips, logo icons, emoji, illustrations or decorative shapes. Exception: the tech-stack strip shows devicon logos in their brand colors (see below).
 - **Honest content.** No metrics, counters or claims that aren't in the content files. Missing data stays a `[PLACEHOLDER]`.
 - **Black-and-white portrait.** The photo is always `grayscale`. Color sits around it, never on it.
 - **Quiet motion.** Use a fade/rise on load (hero) and on first scroll into view (section headers, project rows), and nothing else. Respect `prefers-reduced-motion`.
@@ -119,7 +119,11 @@ Left column, top to bottom:
 
 ### Tech stack strip
 
-`bg-ink-2` with hairlines top and bottom. One row of plain-text items in `text-subtle` 16px, `justify-between`, wrapping on small screens.
+`bg-ink-2` with hairlines top and bottom. Each item is a logo above its name:
+- Logo: devicon SVG inlined at build time (`src/data/techIcons.ts`), original fills stripped, `fill="currentColor"`, colored with its brand color (`brand` in `techIcons.ts`, set as `--tech-brand` on the item), 28px (md 32px), `aria-hidden`.
+- Name: sans 13px, `text-subtle`, centered. No hover state.
+- This strip is the only place hues other than coral appear.
+- Layout: centered `flex-wrap` with fixed item widths (100px, md 124px), so 3 per row on mobile and 5 + 5 on tablet; one `justify-between` row from `xl`.
 
 ### About
 

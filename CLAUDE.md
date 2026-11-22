@@ -14,6 +14,7 @@ Visual spec, tokens and component specs: @design.md
 - **Tailwind CSS v4** via `@tailwindcss/vite`. Config lives in CSS (`@theme` in `src/styles/global.css`), so there is no `tailwind.config.js`
 - **Content Collections** (`src/content.config.ts`, `glob()` / `file()` loaders, Zod schemas)
 - **No UI framework.** Interactivity is small vanilla TS `<script>`s in Astro components
+- Tech-stack logos: `devicon` (devDependency, SVGs imported `?raw` and inlined at build time, no client JS)
 - Fonts self-hosted via Fontsource: `@fontsource-variable/schibsted-grotesk`, `@fontsource-variable/jetbrains-mono`
 - `@astrojs/sitemap`, `@astrojs/check`, Prettier (`prettier-plugin-astro`, `prettier-plugin-tailwindcss`)
 - Package manager: **npm**. Node: 22 LTS (`.nvmrc`)
