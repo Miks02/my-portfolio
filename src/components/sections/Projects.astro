@@ -1,0 +1,43 @@
+---
+import type { ComponentProps } from "astro/types";
+import ProjectRow from "../ui/ProjectRow.astro";
+import SectionLabel from "../ui/SectionLabel.astro";
+
+type Row = Omit<ComponentProps<typeof ProjectRow>, "index">;
+
+interface Props {
+  index: number;
+  label: string;
+  heading: string;
+  note: string;
+  projects: readonly Row[];
+}
+
+const { index, label, heading, note, projects } = Astro.props;
+---
+
+<section
+  id="projects"
+  aria-labelledby="projects-heading"
+  class="mx-auto max-w-[1200px] px-6 pt-4 pb-16 md:px-12 md:pt-10 md:pb-[120px]"
+>
+  <div
+    data-reveal
+    class="flex flex-wrap items-end justify-between gap-6 border-b border-line pb-8"
+  >
+    <div>
+      <SectionLabel index={index} label={label} />
+      <h2
+        id="projects-heading"
+        class="mt-5 text-[34px] leading-[1.05] font-semibold tracking-[-0.03em] md:text-[48px]"
+      >
+        {heading}
+      </h2>
+    </div>
+    <p class="max-w-[340px] text-[16px] leading-[1.6] text-muted">{note}</p>
+  </div>
+
+  {projects.map((project, i) => (
+    <ProjectRow index={i + 1} {...project} />
+  ))}
+</section>

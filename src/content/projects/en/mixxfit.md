@@ -1,12 +1,12 @@
 ---
-title: mixxfit
+title: MixxFit
 kind: Fitness app
 order: 2
-summary: "A fitness app I designed and built end to end - Angular on the client, ASP.NET Core on the server, on the same token-auth foundation. Deployed and live; a native Android client in Kotlin is next."
+summary: "A fitness app I designed and built from scratch. It works like a simplified version of the popular fitness apps on Google Play, but it runs on the web, so there's nothing to install. It's deployed and live. I spent some time on a React Native version before dropping it in favor of a fully native Kotlin app. The mobile version is on hold for now, since most of my time goes into CodeWithMixx."
 stack: [Angular, ASP.NET Core, EF Core, ASP.NET Identity]
-# liveUrl: [PLACEHOLDER]
-# repoUrl: [PLACEHOLDER]
-# cover: [PLACEHOLDER] screenshot, e.g. ../../../assets/projects/mixxfit.png
+liveUrl: "https://www.getmixxfit.com"
+repoUrl: "https://www.github.com/Miks02/mixxfit-web"
+cover: "../../../assets/projects/mixxfit.png"
 caseStudy: false
 ---
 

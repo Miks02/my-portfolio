@@ -1,16 +1,38 @@
 ---
 import About from "../components/sections/About.astro";
 import Hero from "../components/sections/Hero.astro";
+import Projects from "../components/sections/Projects.astro";
 import TechStack from "../components/sections/TechStack.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { isPlaceholder, site } from "../data/site";
-import { getLang, useTranslations } from "../i18n/utils";
+import { getProjects } from "../data/collections";
+import { getLang, localizePath, useTranslations } from "../i18n/utils";
 
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
 
 // Only real profile URLs go into sameAs; placeholders are skipped until filled in.
 const sameAs = Object.values(site.socials).filter((url) => !isPlaceholder(url));
+
+const projects = (await getProjects(lang)).map(({ slug, data }) => ({
+  title: data.title,
+  kind: data.kind,
+  summary: data.summary,
+  stack: data.stack,
+  liveUrl: data.liveUrl,
+  repoUrl: data.repoUrl,
+  caseStudyHref: data.caseStudy
+    ? localizePath(lang, `/projects/${slug}/`)
+    : undefined,
+  cover: data.cover,
+  coverAlt: data.coverAlt,
+  labels: {
+    live: t("projects.live"),
+    repo: t("projects.repo"),
+    caseStudy: t("projects.caseStudy"),
+    screenshot: t("projects.screenshot").replace("{title}", data.title),
+  },
+}));
 
 const person = {
   "@context": "https://schema.org",
@@ -59,5 +81,12 @@ const person = {
         value: t("about.fact.currently.value"),
       },
     ]}
+  />
+  <Projects
+    index={2}
+    label={t("projects.label")}
+    heading={t("projects.heading")}
+    note={t("projects.note")}
+    projects={projects}
   />
 </BaseLayout>

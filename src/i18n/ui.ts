@@ -37,7 +37,7 @@ export const ui = {
     "about.label": "About",
     "about.heading": "Full stack, with the backend done properly.",
     "about.lead":
-      "I'm a software engineer from Belgrade working across the stack with Angular and ASP.NET Core. I tend to structure code for maintainability every time, meaning that 90% of my projects are written with 'feature-first' or 'vertical slice' architecture. A perfect combination for solo apps.",
+      "I'm a software engineer from Belgrade working across the stack with Angular and ASP.NET Core. I structure code for maintainability: most of my projects use a feature-first or vertical slice architecture, which suits solo apps well.",
     "about.body":
       "I finished my Bachelor's degree in IT Engineering at ITS Belgrade in 2026 and I'm now doing a master's there. Alongside that I teach programming to other IT students via my own platform CodeWithMixx, which keeps me sharp on explaining why code is written the way it is.",
     "about.fact.basedIn.label": "Based in",
@@ -56,7 +56,7 @@ export const ui = {
     "projects.live": "Live site",
     "projects.repo": "GitHub",
     "projects.caseStudy": "Case study",
-    "projects.screenshot": "project screenshot",
+    "projects.screenshot": "{title} screenshot",
     "projects.back": "All projects",
 
     "experience.label": "Experience & Education",

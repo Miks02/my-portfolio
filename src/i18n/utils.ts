@@ -16,3 +16,8 @@ export function useTranslations(lang: Lang) {
     return strings[key] ?? ui[defaultLang][key];
   };
 }
+
+/** Prefixes a path with the locale, except for the default locale (`/projects/x` → `/sr/projects/x`). */
+export function localizePath(lang: Lang, path: string): string {
+  return lang === defaultLang ? path : `/${lang}${path}`;
+}

@@ -134,7 +134,7 @@ Left: section label + H2. Right: lead paragraph, a second paragraph in `text-mut
 
 - Header row: label + H2 on the left, a short note (max ~340px) on the right, hairline below.
 - `ProjectRow` text column: mono "01 / kind", H3, summary, a mono stack line in `text-subtle`, then links. "Live site ↗" has a 2px accent underline and "GitHub ↗" a 2px `line-strong` underline. "Case study →" appears only when the project has one.
-- `ProjectRow` screenshot column: a 16:10 frame, `bg-surface rounded-xs`. With no image, it shows a centered mono label like `[project screenshot]`.
+- `ProjectRow` screenshot column: `bg-surface rounded-xs`. A cover keeps its own aspect ratio (no `object-cover` cropping, which upscales and blurs UI screenshots); use the same size for all covers so rows match (currently 1914×965). Covers are served as WebP at quality 90 with widths up to the original. With no image, the column shows a 16:10 frame with a centered mono label like `[codewithmixx screenshot]`.
 - Rows are separated by hairlines. On mobile the screenshot sits above the text.
 
 ### Experience & Education

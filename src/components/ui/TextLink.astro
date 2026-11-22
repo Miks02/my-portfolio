@@ -1,0 +1,35 @@
+---
+interface Props {
+  href: string;
+  /** Opens in a new tab with rel="noopener noreferrer" and shows "↗". */
+  external?: boolean;
+  /** Underline color: accent (primary link) or line-strong (secondary). */
+  underline?: "accent" | "strong";
+  /** Shows "→" after the label (internal links such as "Case study"). */
+  arrow?: boolean;
+}
+
+const {
+  href,
+  external = false,
+  underline = "strong",
+  arrow = false,
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class="group inline-flex min-h-11 items-center text-[16px] font-medium text-fg transition-colors duration-200 hover:text-accent"
+  {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+>
+  <span
+    class:list={[
+      "border-b-2 pb-1",
+      underline === "accent" ? "border-accent" : "border-line-strong",
+    ]}
+  >
+    <slot />
+    {external && <span aria-hidden="true"> ↗</span>}
+    {arrow && <span aria-hidden="true"> →</span>}
+  </span>
+</a>
