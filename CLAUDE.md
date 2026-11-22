@@ -10,14 +10,14 @@ Visual spec, tokens and component specs: @design.md
 
 ## Stack
 
-- **Astro 6** (static output, no adapter), **TypeScript strict**
+- **Astro 7** (static output, no adapter), **TypeScript strict**
 - **Tailwind CSS v4** via `@tailwindcss/vite`. Config lives in CSS (`@theme` in `src/styles/global.css`), so there is no `tailwind.config.js`
-- **Content Collections** (`src/content.config.ts`, `glob()` / `file()` loaders, Zod schemas)
+- **Content Collections** (`src/content.config.ts`, `glob()` / `file()` loaders, Zod 4 schemas). Import `z` from `astro/zod` (the `astro:content` export is deprecated) and use `z.url()`, not `z.string().url()`
 - **No UI framework.** Interactivity is small vanilla TS `<script>`s in Astro components
 - Tech-stack logos: `devicon` (devDependency, SVGs imported `?raw` and inlined at build time, no client JS)
 - Fonts self-hosted via Fontsource: `@fontsource-variable/schibsted-grotesk`, `@fontsource-variable/jetbrains-mono`
 - `@astrojs/sitemap`, `@astrojs/check`, Prettier (`prettier-plugin-astro`, `prettier-plugin-tailwindcss`)
-- Package manager: **npm**. Node: 22 LTS (`.nvmrc`)
+- Package manager: **npm**. Node: 22 LTS (`.nvmrc`); Astro 7 needs ≥ 22.23.4 (`engines` in `package.json`)
 
 ## Commands
 
@@ -31,8 +31,8 @@ npm run format    # prettier --write .
 
 Before calling a task done, `npm run check` and `npm run build` must both pass with zero errors.
 
-Known issue: if `npm run build` fails with `Missing field 'tsconfigPaths'`, npm has hoisted Vite 8
-next to Astro's Vite 7. Add `"overrides": { "vite": "^7" }` to `package.json` and reinstall.
+For a dev server that keeps running in the background (e.g. for screenshots), use `npx astro dev --background`;
+manage it with `astro dev stop | status | logs` (see AGENTS.md).
 
 ---
 
@@ -42,6 +42,7 @@ next to Astro's Vite 7. Add `"overrides": { "vite": "^7" }` to `package.json` an
 src/
   assets/
     milan.png                 # transparent B&W portrait (used via astro:assets)
+    projects/*.png            # project covers (same size for all, currently 1914×965)
   components/
     layout/   Navbar.astro  Footer.astro  SkipLink.astro
     sections/ Hero.astro  TechStack.astro  About.astro  Projects.astro  Experience.astro  Contact.astro
@@ -53,15 +54,17 @@ src/
     experience/en.json
   content.config.ts
   data/
-    site.ts                   # non-translatable: name, email, URLs, socials, tech stack list
+    site.ts                   # non-translatable: name, email, URLs, socials, tech stack list, isPlaceholder()
+    techIcons.ts              # devicon SVGs (?raw) + brand colors for the tech-stack strip
+    collections.ts            # getProjects(lang), getExperience(lang): the only place that reads collections
   i18n/
     ui.ts                     # all UI strings, keyed by locale: { en: {...} }
-    utils.ts                  # getLang(), useTranslations(lang) → t(key)
+    utils.ts                  # getLang(), useTranslations(lang) → t(key), localizePath(lang, path)
   layouts/
     BaseLayout.astro          # <html lang>, meta/OG, fonts, global.css, Navbar, Footer, reveal script
   pages/
     index.astro
-    projects/[slug].astro     # case studies
+    projects/[slug].astro     # case studies (not built yet: no project has caseStudy: true)
     404.astro
   scripts/
     navbar.ts  reveal.ts
@@ -74,35 +77,40 @@ public/
 Rules:
 - **Sections get their data from outside.** No copy is hardcoded in `sections/*`. Strings come from `i18n/ui.ts`, data from content collections or `site.ts`.
 - One component per file, PascalCase, typed `interface Props`, no `any`.
+- Pages (`pages/*`) are the "smart" layer: they call `t()`, `site` and the collection helpers and pass plain props down. Sections and `ui/*` are presentational.
+- Placeholders in `site.ts` start with `[`; filter them with `isPlaceholder()` so no broken links render.
+- Large screens: from `3xl` (2560px) the whole page is zoomed 4/3 in `global.css` (see design.md, Layout). Don't add per-component `3xl:` sizes; do add the zoomed size to raster image `sizes`.
 - Client JS stays tiny and colocated (a `<script>` in the component, or `src/scripts/*.ts` imported from it). No libraries for scroll, animation or DOM work.
 
 ### Content collections (`src/content.config.ts`)
 
 ```ts
-import { defineCollection, z } from "astro:content";
-import { glob, file } from "astro/loaders";
+import { defineCollection } from "astro:content";
+import { file, glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const projects = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    kind: z.string(),               
-    order: z.number(),
-    summary: z.string(),              
-    stack: z.array(z.string()),
-    liveUrl: z.string().url().optional(),
-    repoUrl: z.string().url().optional(),
-    cover: image().optional(),
-    coverAlt: z.string().optional(),
-    caseStudy: z.boolean().default(false), 
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      kind: z.string(),
+      order: z.number(),
+      summary: z.string(),
+      stack: z.array(z.string()),
+      liveUrl: z.url().optional(),
+      repoUrl: z.url().optional(),
+      cover: image().optional(),
+      coverAlt: z.string().optional(),
+      caseStudy: z.boolean().default(false),
+    }),
 });
 
 const experience = defineCollection({
   loader: file("./src/content/experience/en.json"),
   schema: z.object({
     id: z.string(),
-    period: z.string(),               
+    period: z.string(),
     title: z.string(),
     org: z.string(),
     detail: z.string().optional(),
@@ -115,14 +123,16 @@ export const collections = { projects, experience };
 ```
 
 - The locale is the first folder of the entry id (`en/codewithmixx`) and the slug is the rest. Keep this in one helper (`getProjects(lang)`), not repeated across pages.
-- If `cover` is missing, render the empty screenshot frame (see design.md).
+- If `cover` is missing, render the empty 16:10 screenshot frame. A cover keeps its own aspect ratio, never `object-cover` (see design.md).
 - If `liveUrl` or `repoUrl` is missing, don't render that link.
 
 ### i18n (English only for now, ready for Serbian)
 
 - `astro.config.mjs`: `i18n: { defaultLocale: "en", locales: ["en"], routing: { prefixDefaultLocale: false } }`.
 - Every user-facing UI string lives in `src/i18n/ui.ts`.
-- Adding Serbian later means: add `"sr"` to locales, `sr` keys in `ui.ts`, `content/projects/sr/*`, `experience/sr.json` and `src/pages/sr/…`. It should need no component changes.
+- Adding Serbian later means: add `"sr"` to locales, `sr` keys in `ui.ts`, `content/projects/sr/*`, `experience/sr.json` and `src/pages/sr/…`. It should need no component changes. The `experience` collection uses `file()`, which reads one file, so `content.config.ts` and `getExperience()` need a small change to load `sr.json` too.
+- Translatable text (including the location "Belgrade, Serbia", key `common.location`) goes in `ui.ts`; only non-translatable data goes in `site.ts`.
+- Internal links that depend on the locale go through `localizePath(lang, path)`.
 - `<html lang>` comes from the current locale.
 
 ### Case studies (`/projects/[slug]`)
@@ -143,7 +153,7 @@ export const collections = { projects, experience };
 ## SEO & meta
 
 - `BaseLayout` takes `title`, `description` and an optional `ogImage`. Default title: "Milan Nikolić | Software Engineer". No em dashes anywhere in copy.
-- Set `site: "[SITE_URL]"` in `astro.config.mjs`; sitemap, canonical and absolute OG URLs depend on it.
+- `site` in `astro.config.mjs` is `https://example.com` until the domain is known (`[SITE_URL]`); sitemap, canonical, absolute OG URLs and `public/robots.txt` depend on it. `BaseLayout` falls back to the request URL if `site` is ever missing.
 - Include canonical, OG + Twitter tags, `theme-color` `#11161E`, `@astrojs/sitemap`, and a `public/robots.txt` that points to the sitemap.
 - Add JSON-LD `Person` on the home page (name, jobTitle, url, sameAs), using real data only.
 
@@ -151,6 +161,7 @@ export const collections = { projects, experience };
 
 - Ship no framework JS. Client JS should stay at a few KB (navbar + reveal).
 - All images go through `astro:assets`. The portrait is served as AVIF/WebP with an explicit width, `loading="eager"`, `fetchpriority="high"`.
+- Project covers are UI screenshots: WebP at `quality={90}`, widths up to the original, accurate `sizes` (including the 3xl zoom). Low quality or upscaling makes their text look pixelated.
 - Load only the font weights that are used.
 
 ## Deployment (Cloudflare Pages)
@@ -167,6 +178,7 @@ export const collections = { projects, experience };
     X-Frame-Options: DENY
   ```
 - 404 is handled by `src/pages/404.astro`, which builds to `404.html`.
+- Test deploys on Vercel also work with zero config (framework preset Astro, output `dist`, Node 22.x). Vercel ignores `public/_headers` (headers would go in `vercel.json`), which is fine for a test.
 
 ---
 
@@ -183,35 +195,8 @@ export const collections = { projects, experience };
 
 ## Open placeholders
 
-- `[SITE_URL]` (production domain)
-- Contact email, GitHub URL, LinkedIn URL
-- `repoUrl` for codewithmixx and mixxfit, `liveUrl` for mixxfit
-- `public/resume.pdf`, `public/og.png` (1200×630)
-- Project screenshots (`cover`)
-
----
-
-## Seed content (temporary: delete this section once the content files exist)
-
-**site.ts.** Name "Milan Nikolić", location "Belgrade, Serbia". Stack: Angular, TypeScript, C#, ASP.NET Core, Entity Framework Core, ASP.NET Identity, JWT, Domain-Driven Design, SQL, Git.
-
-**Hero line:** "I build web applications end to end: Angular on the front, ASP.NET Core with a clean domain model behind it."
-
-**About.** H2: "Full stack, with the backend done properly."
-- Lead: "I'm a software engineer from Belgrade working across the stack with Angular and ASP.NET Core. On the backend I structure code around the domain with DDD, and I handle auth with ASP.NET Identity and my own JWT + refresh-token flow — the same setup that runs in my production apps."
-- Second paragraph: "I finished my BSc in Information Technology at ITS Belgrade in 2026 and I'm now doing a master's there. Alongside that I teach programming one-on-one to IT students through codewithmixx, which keeps me sharp on explaining why code is written the way it is."
-- Facts: Based in — Belgrade, Serbia · Availability — Remote or relocation · English — C1–C2 · Currently — Master's in IT, ITS Belgrade
-
-**Projects.** H2: "Things I've built and shipped". Note: "Both are deployed and in use, built with the same Angular + .NET foundation."
-1. **codewithmixx**, kind "Tutoring platform", liveUrl https://codewithmixx.com, stack Angular, ASP.NET Core, EF Core, DDD, JWT.
-   Summary: "The platform behind my 1-on-1 online programming lessons for IT students. An Angular front end on an ASP.NET Core API, modelled with DDD, with ASP.NET Identity and JWT + refresh tokens handling accounts and sessions."
-2. **mixxfit**, kind "Fitness app", stack Angular, ASP.NET Core, EF Core, ASP.NET Identity.
-   Summary: "A fitness app I designed and built end to end — Angular on the client, ASP.NET Core on the server, on the same DDD and token-auth foundation. Deployed and live; a native Android client in Kotlin is next."
-
-**Experience.** H2: "Where I've been learning and working". Items, top to bottom:
-1. Nov 2026 — present · Master's studies, Information Technology · ITS Belgrade · current
-2. Ongoing · Programming tutor · codewithmixx · One-on-one online lessons for IT students
-3. Oct 2026 · BSc, Information Technology · ITS Belgrade · Thesis graded 10
-4. May — Jun 2025 · Software Engineering Intern · Comtrade · Angular + .NET
-
-**Contact.** H2: "Have a role or a project in mind?" Text: "I'm looking for a full-time role — remote, or on-site if it means relocating. Email is the quickest way to reach me."
+- `[SITE_URL]` (production domain): `astro.config.mjs` and `public/robots.txt`
+- `public/resume.pdf` (the hero Resume button 404s until it exists)
+- `public/og.png` (1200×630)
+- Favicon (`public/favicon.svg` / `favicon.ico` are still the Astro defaults)
+- Case studies: none written yet (`caseStudy: false` on both projects)
