@@ -14,19 +14,26 @@ interface Props {
   portraitAlt: string;
 }
 
-const { name, location, title, text, ctaLabel, ctaHref, resumeLabel, resumeHref, portraitAlt } =
-  Astro.props;
+const {
+  name,
+  location,
+  title,
+  text,
+  ctaLabel,
+  ctaHref,
+  resumeLabel,
+  resumeHref,
+  portraitAlt,
+} = Astro.props;
 
 // "Milan Nikolić" renders as "Milan / Nikolić" on two lines.
 const nameLines = name.split(" ");
 ---
 
-<section id="top" class="relative overflow-hidden pt-16 md:pt-[72px]">
+<section id="top" class="relative overflow-hidden pt-[72px]">
   <div class="mx-auto flex max-w-[1200px] flex-col gap-8 px-6 md:px-12 lg:flex-row lg:items-stretch">
-    <div class="flex min-w-0 flex-1 flex-col justify-center pt-10 pb-4 md:pt-14 lg:pb-24">
-      <p
-        class="rise flex items-center gap-3 font-mono text-[12px] tracking-[0.08em] text-muted uppercase md:text-[13px]"
-      >
+    <div class="flex min-w-0 flex-1 flex-col justify-center pt-10 pb-12 md:pt-14 lg:pb-24">
+      <p class="rise flex items-center gap-3 font-mono text-[12px] tracking-[0.08em] text-muted uppercase md:text-[13px]">
         <span aria-hidden="true" class="inline-block size-2 bg-accent"></span>
         {location}
       </p>
@@ -35,19 +42,25 @@ const nameLines = name.split(" ");
         class="rise mt-7 text-[58px] leading-[0.95] font-semibold tracking-[-0.035em] md:text-[clamp(56px,7vw,96px)]"
         style="animation-delay: 80ms"
       >
-        {
-          nameLines.map((line, i) => (
-            <>
-              {i > 0 && <br />}
-              {line}
-            </>
-          ))
-        }
+        {nameLines.map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))}
       </h1>
 
-      <p class="rise mt-7 flex items-center gap-[18px]" style="animation-delay: 160ms">
-        <span aria-hidden="true" class="inline-block h-0.5 w-10 bg-accent md:w-14"></span>
-        <span class="text-[22px] font-medium tracking-[-0.015em] md:text-[28px]">{title}</span>
+      <p
+        class="rise mt-7 flex items-center gap-[18px]"
+        style="animation-delay: 160ms"
+      >
+        <span
+          aria-hidden="true"
+          class="inline-block h-0.5 w-10 bg-accent md:w-14"
+        ></span>
+        <span class="text-[22px] font-medium tracking-[-0.015em] md:text-[28px]">
+          {title}
+        </span>
       </p>
 
       <p
@@ -58,8 +71,15 @@ const nameLines = name.split(" ");
       </p>
 
       <div class="rise mt-10 flex gap-3.5" style="animation-delay: 320ms">
-        <Button href={ctaHref} class="flex-1 md:flex-none">{ctaLabel}</Button>
-        <Button href={resumeHref} variant="secondary" newTab class="flex-1 md:flex-none">
+        <Button href={ctaHref} class="flex-1 md:flex-none">
+          {ctaLabel}
+        </Button>
+        <Button
+          href={resumeHref}
+          variant="secondary"
+          newTab
+          class="flex-1 md:flex-none"
+        >
           {resumeLabel}
           <svg
             width="14"

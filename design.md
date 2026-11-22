@@ -8,12 +8,12 @@ Restrained, typographic, honest. One accent color, a lot of whitespace, a clear 
 
 - **One accent.** Coral is used only for the hero ring and glow, small markers (squares, rules, underlines), section labels, the primary button, and focus outlines. No other hues: no purple, violet, indigo, teal or second brand color.
 - **Flat surfaces.** No gradient backgrounds, gradient text, shadows, blur or glass effects. There are two exceptions: the hero glow (radial, ≤16% opacity) and the edge mask on the portrait.
-- **Small radii.** Buttons and frames use `rounded-xs` (2px) or no radius. `rounded-full` is only for the ring and the glow. Nothing is pill-shaped.
+- **Small radii.** Buttons and frames use `rounded-xs` (2px) or no radius. `rounded-full` is only for the ring and the glow. Nothing is pill-shaped. Exception: the mobile navbar card (12px) and its menu button (8px).
 - **Few borders.** Separate content with whitespace and single 1px hairlines (`border-line`). Don't box every element, don't nest cards, and don't use bento grids.
 - **Plain text over decoration.** Tech lists are text separated by ` · `. Don't use chips, logo icons, emoji, illustrations or decorative shapes. Exception: the tech-stack strip shows devicon logos in their brand colors (see below).
 - **Honest content.** No metrics, counters or claims that aren't in the content files. Missing data stays a `[PLACEHOLDER]`.
 - **Black-and-white portrait.** The photo is always `grayscale`. Color sits around it, never on it.
-- **Quiet motion.** Use a fade/rise on load (hero) and on first scroll into view (section headers, project rows), and nothing else. Respect `prefers-reduced-motion`.
+- **Quiet motion.** Use a fade/rise on load (hero), on first scroll into view (section headers, project rows) and when the mobile menu opens, and nothing else. Respect `prefers-reduced-motion`.
 
 Design lint: run this before finishing UI work. It should return nothing unless an exception is commented.
 
@@ -80,14 +80,21 @@ grep -rnE "purple|violet|indigo|bg-linear|bg-gradient|backdrop-blur|shadow-|roun
 
 ### Navbar (fixed)
 
-- `fixed inset-x-0 top-0 z-50`, 72px tall (64px on mobile). Left: `Milan Nikolić` followed by an accent `.`. Right: About, Projects, Experience, Contact.
-- **At the top of the page:** transparent, no border. **After scrolling ~16px:** `bg-ink` plus `border-b border-line`, with a 200ms color transition. No blur, no shadow.
-  Use an `IntersectionObserver` on a 1px sentinel at the top of `<body>` that toggles `data-scrolled` on `<header>`.
-- **Active section** (home page only): an IntersectionObserver on the sections sets `aria-current="true"`. Active link is `text-fg` with a 2px accent underline. Other links are `text-muted hover:text-fg`.
+- Left: `Milan Nikolić` followed by an accent `.` (semibold). Right: About, Projects, Experience, Contact.
 - Links use the `/#about` form so they also work from case-study pages.
 - `html { scroll-behavior: smooth; scroll-padding-top: 88px }`. Turn smooth scrolling off under reduced motion.
-- **Mobile (< md):** a hamburger `<button aria-label="Open menu" aria-expanded aria-controls="mobile-menu">` with a 44×44 hit area and an inline stroke SVG. It opens a full-width solid `bg-ink` panel under the bar with 24px links in 56px rows, separated by hairlines. Opening the panel forces the solid navbar state. Close it on link click, Escape, the button, or a resize to ≥ md. Lock body scroll while it's open. Move focus to the first link on open and back to the button on close.
-- The hero has top padding equal to the navbar height.
+
+**Desktop (≥ md):** a full-width bar, `fixed inset-x-0 top-0 z-50`, 72px tall.
+- Links: 15px semibold, `text-fg-soft/80 hover:text-fg`.
+- **At the top of the page:** transparent, no border. **After scrolling ~16px:** `bg-ink` plus `border-b border-line`, with a 200ms color transition. No blur, no shadow. An `IntersectionObserver` on a 1px sentinel at the top of `<body>` toggles `data-scrolled` on `<header>`.
+- **Active section** (home page only): an IntersectionObserver on the sections sets `aria-current="true"`. The active link is `text-fg` with a 2px accent underline.
+
+**Mobile (< md):** a floating card, `fixed inset-x-3 top-3`, 60px tall, `rounded-[12px] border border-line-strong bg-ink`, always solid (no scroll state). Its inner padding lines the logo up with the 24px page gutter.
+- Menu button: 44×44, `rounded-[8px] border border-line bg-surface`, inline stroke SVG (hamburger ↔ X), `aria-label="Open menu" aria-expanded aria-controls="mobile-menu"`.
+- Open: the menu expands inside the card below a hairline: 56px rows, 20px semibold `text-fg-soft/80` (active/hover `text-fg`), a small `text-dim` "→" on the right, hairlines between rows. A scrim (`bg-ink/85`, no blur) dims the page behind it; tapping it closes the menu.
+- Close on link click, Escape, the button, the scrim, or a resize to ≥ md. Lock body scroll while it's open. Move focus to the first link on open and back to the button on close.
+- Opening animation (none under reduced motion): the card grows open (max-height, 320ms), links fade/rise 6px one after another (45ms stagger), the scrim fades in (220ms), the X turns in from -90°.
+- The hero has 72px top padding on every size, so content clears both the desktop bar and the mobile card.
 
 ### Hero
 

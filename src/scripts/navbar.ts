@@ -4,6 +4,7 @@ const header = document.querySelector<HTMLElement>("[data-navbar]");
 const sentinel = document.querySelector<HTMLElement>("[data-nav-sentinel]");
 const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
 const menu = document.getElementById("mobile-menu");
+const scrim = document.querySelector<HTMLElement>("[data-nav-scrim]");
 
 if (header && sentinel && toggle && menu) {
   // --- Solid state once the 1px sentinel scrolls out of view ---
@@ -56,6 +57,7 @@ if (header && sentinel && toggle && menu) {
       (open ? toggle.dataset.labelClose : toggle.dataset.labelOpen) ?? "",
     );
     menu.hidden = !open;
+    if (scrim) scrim.hidden = !open;
     header.toggleAttribute("data-open", open);
     document.documentElement.style.overflow = open ? "hidden" : "";
 
@@ -64,6 +66,8 @@ if (header && sentinel && toggle && menu) {
   };
 
   toggle.addEventListener("click", () => setOpen(!isOpen()));
+
+  scrim?.addEventListener("click", () => setOpen(false));
 
   menu.addEventListener("click", (event) => {
     if ((event.target as Element).closest("a")) setOpen(false, false);
