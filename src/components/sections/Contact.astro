@@ -1,0 +1,58 @@
+---
+import SectionLabel from "../ui/SectionLabel.astro";
+import TextLink from "../ui/TextLink.astro";
+
+interface Props {
+  index: number;
+  label: string;
+  heading: string;
+  text: string;
+  email: string;
+  links: readonly { label: string; href: string }[];
+}
+
+const { index, label, heading, text, email, links } = Astro.props;
+
+// <wbr> before "@" so a narrow screen breaks the address there, not mid-word.
+const [local, domain] = email.split("@");
+---
+
+<section
+  id="contact"
+  aria-labelledby="contact-heading"
+  class="mx-auto max-w-[1200px] px-6 pt-20 pb-20 md:px-12 md:pt-[140px] md:pb-[120px]"
+>
+  <div data-reveal>
+    <SectionLabel index={index} label={label} />
+    <h2
+      id="contact-heading"
+      class="mt-5 max-w-[820px] text-[42px] leading-none font-semibold tracking-[-0.035em] md:text-[clamp(44px,5.6vw,76px)]"
+    >
+      {heading}
+    </h2>
+  </div>
+
+  <div class="mt-10 flex flex-col gap-10 md:mt-14 lg:flex-row lg:items-end lg:justify-between">
+    <div class="min-w-0">
+      <p class="max-w-[480px] text-[17px] leading-[1.65] text-muted md:text-[18px]">
+        {text}
+      </p>
+      <a
+        href={`mailto:${email}`}
+        class="mt-7 inline-block max-w-full border-b-2 border-accent pb-1.5 text-[clamp(15px,5.2vw,22px)] font-medium tracking-[-0.015em] [overflow-wrap:anywhere] text-fg transition-colors duration-200 hover:text-accent md:text-[30px]"
+      >
+        {local}<wbr />@{domain}
+      </a>
+    </div>
+
+    <ul class="flex flex-wrap gap-x-9 gap-y-1">
+      {links.map(({ label, href }) => (
+        <li>
+          <TextLink href={href} external underline="none">
+            {label}
+          </TextLink>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -3,8 +3,8 @@ interface Props {
   href: string;
   /** Opens in a new tab with rel="noopener noreferrer" and shows "↗". */
   external?: boolean;
-  /** Underline color: accent (primary link) or line-strong (secondary). */
-  underline?: "accent" | "strong";
+  /** Underline color: accent (primary link), line-strong (secondary) or none (plain link). */
+  underline?: "accent" | "strong" | "none";
   /** Shows "→" after the label (internal links such as "Case study"). */
   arrow?: boolean;
 }
@@ -24,8 +24,9 @@ const {
 >
   <span
     class:list={[
-      "border-b-2 pb-1",
-      underline === "accent" ? "border-accent" : "border-line-strong",
+      underline !== "none" && "border-b-2 pb-1",
+      underline === "accent" && "border-accent",
+      underline === "strong" && "border-line-strong",
     ]}
   >
     <slot />

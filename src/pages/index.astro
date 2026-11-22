@@ -1,5 +1,6 @@
 ---
 import About from "../components/sections/About.astro";
+import Contact from "../components/sections/Contact.astro";
 import Experience from "../components/sections/Experience.astro";
 import Hero from "../components/sections/Hero.astro";
 import Projects from "../components/sections/Projects.astro";
@@ -42,6 +43,13 @@ const experience = (await getExperience(lang)).map(({ data }) => ({
   detail: data.detail,
   current: data.current,
 }));
+
+// Placeholders (`[...]`) are skipped so no broken links are rendered.
+const contactLinks = [
+  { label: t("contact.github"), href: site.socials.github },
+  { label: t("contact.linkedin"), href: site.socials.linkedin },
+  { label: t("contact.codewithmixx"), href: site.socials.codewithmixx },
+].filter(({ href }) => !isPlaceholder(href));
 
 const person = {
   "@context": "https://schema.org",
@@ -103,5 +111,13 @@ const person = {
     label={t("experience.label")}
     heading={t("experience.heading")}
     items={experience}
+  />
+  <Contact
+    index={4}
+    label={t("contact.label")}
+    heading={t("contact.heading")}
+    text={t("contact.text")}
+    email={site.email}
+    links={contactLinks}
   />
 </BaseLayout>
