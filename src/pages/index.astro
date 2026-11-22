@@ -1,11 +1,12 @@
 ---
 import About from "../components/sections/About.astro";
+import Experience from "../components/sections/Experience.astro";
 import Hero from "../components/sections/Hero.astro";
 import Projects from "../components/sections/Projects.astro";
 import TechStack from "../components/sections/TechStack.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { isPlaceholder, site } from "../data/site";
-import { getProjects } from "../data/collections";
+import { getExperience, getProjects } from "../data/collections";
 import { getLang, localizePath, useTranslations } from "../i18n/utils";
 
 const lang = getLang(Astro.currentLocale);
@@ -32,6 +33,14 @@ const projects = (await getProjects(lang)).map(({ slug, data }) => ({
     caseStudy: t("projects.caseStudy"),
     screenshot: t("projects.screenshot").replace("{title}", data.title),
   },
+}));
+
+const experience = (await getExperience(lang)).map(({ data }) => ({
+  period: data.period,
+  title: data.title,
+  org: data.org,
+  detail: data.detail,
+  current: data.current,
 }));
 
 const person = {
@@ -88,5 +97,11 @@ const person = {
     heading={t("projects.heading")}
     note={t("projects.note")}
     projects={projects}
+  />
+  <Experience
+    index={3}
+    label={t("experience.label")}
+    heading={t("experience.heading")}
+    items={experience}
   />
 </BaseLayout>

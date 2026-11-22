@@ -68,7 +68,7 @@ export const ui = {
       "I'm looking for a full-time role, remote or on-site if it means relocating. Email is the quickest way to reach me.",
     "contact.github": "GitHub",
     "contact.linkedin": "LinkedIn",
-    "contact.codewithmixx": "codewithmixx",
+    "contact.codewithmixx": "CodeWithMixx",
 
     "notFound.title": "Page not found",
     "notFound.text": "This page doesn't exist or has moved.",

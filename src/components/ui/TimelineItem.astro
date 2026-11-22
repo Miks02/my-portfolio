@@ -1,0 +1,29 @@
+---
+interface Props {
+  period: string;
+  title: string;
+  org: string;
+  detail?: string;
+  /** Current item: filled accent marker instead of an outlined one. */
+  current?: boolean;
+}
+
+const { period, title, org, detail, current = false } = Astro.props;
+---
+
+<li class="relative pb-12 last:pb-0">
+  <span
+    aria-hidden="true"
+    class:list={[
+      "absolute top-[7px] left-[-37px] size-[9px]",
+      current ? "bg-accent" : "border border-marker bg-ink",
+    ]}
+  ></span>
+  <p class="font-mono text-[12px] text-muted md:text-[13px]">{period}</p>
+  <h3 class="mt-2.5 text-[19px] leading-[1.3] font-semibold tracking-[-0.01em] md:text-[22px]">
+    {title}
+  </h3>
+  <p class="mt-1.5 text-[16px] leading-[1.6] text-muted">
+    {detail ? `${org} · ${detail}` : org}
+  </p>
+</li>
