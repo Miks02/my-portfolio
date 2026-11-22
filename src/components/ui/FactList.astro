@@ -1,0 +1,29 @@
+---
+export interface Fact {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  facts: readonly Fact[];
+  class?: string;
+}
+
+const { facts, class: className } = Astro.props;
+---
+
+<dl
+  class:list={[
+    "grid grid-cols-2 gap-x-6 gap-y-7 border-t border-line pt-8 md:gap-x-10",
+    className,
+  ]}
+>
+  {facts.map(({ label, value }) => (
+    <div>
+      <dt class="font-mono text-[12px] tracking-[0.06em] text-dim uppercase">
+        {label}
+      </dt>
+      <dd class="mt-2 text-[17px] text-fg">{value}</dd>
+    </div>
+  ))}
+</dl>

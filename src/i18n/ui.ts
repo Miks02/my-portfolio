@@ -39,11 +39,11 @@ export const ui = {
     "about.lead":
       "I'm a software engineer from Belgrade working across the stack with Angular and ASP.NET Core. I tend to structure code for maintainability every time, meaning that 90% of my projects are written with 'feature-first' or 'vertical slice' architecture. A perfect combination for solo apps.",
     "about.body":
-      "I finished my BSc in Information Technology at ITS Belgrade in 2026 and I'm now doing a master's there. Alongside that I teach programming one-on-one to IT students through codewithmixx, which keeps me sharp on explaining why code is written the way it is.",
+      "I finished my Bachelor's degree in IT Engineering at ITS Belgrade in 2026 and I'm now doing a master's there. Alongside that I teach programming to other IT students via my own platform CodeWithMixx, which keeps me sharp on explaining why code is written the way it is.",
     "about.fact.basedIn.label": "Based in",
     "about.fact.basedIn.value": "Belgrade, Serbia",
     "about.fact.availability.label": "Availability",
-    "about.fact.availability.value": "Remote or relocation",
+    "about.fact.availability.value": "Remote or on-site",
     "about.fact.english.label": "English",
     "about.fact.english.value": "C1–C2",
     "about.fact.currently.label": "Currently",

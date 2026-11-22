@@ -1,4 +1,5 @@
 ---
+import About from "../components/sections/About.astro";
 import Hero from "../components/sections/Hero.astro";
 import TechStack from "../components/sections/TechStack.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -34,4 +35,29 @@ const person = {
     portraitAlt={t("hero.portraitAlt")}
   />
   <TechStack label={t("stack.label")} items={site.techStack} />
+  <About
+    index={1}
+    label={t("about.label")}
+    heading={t("about.heading")}
+    lead={t("about.lead")}
+    body={t("about.body")}
+    facts={[
+      {
+        label: t("about.fact.basedIn.label"),
+        value: t("about.fact.basedIn.value"),
+      },
+      {
+        label: t("about.fact.availability.label"),
+        value: t("about.fact.availability.value"),
+      },
+      {
+        label: t("about.fact.english.label"),
+        value: t("about.fact.english.value"),
+      },
+      {
+        label: t("about.fact.currently.label"),
+        value: t("about.fact.currently.value"),
+      },
+    ]}
+  />
 </BaseLayout>

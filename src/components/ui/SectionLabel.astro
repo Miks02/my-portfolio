@@ -1,0 +1,14 @@
+---
+interface Props {
+  /** Section number, e.g. 1 → "01". */
+  index: number;
+  label: string;
+}
+
+const { index, label } = Astro.props;
+const number = String(index).padStart(2, "0");
+---
+
+<p class="font-mono text-[12px] tracking-[0.06em] text-accent uppercase md:text-[13px]">
+  {number} / {label}
+</p>

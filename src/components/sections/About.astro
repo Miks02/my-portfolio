@@ -1,0 +1,39 @@
+---
+import FactList, { type Fact } from "../ui/FactList.astro";
+import SectionLabel from "../ui/SectionLabel.astro";
+
+interface Props {
+  index: number;
+  label: string;
+  heading: string;
+  lead: string;
+  body: string;
+  facts: readonly Fact[];
+}
+
+const { index, label, heading, lead, body, facts } = Astro.props;
+---
+
+<section
+  id="about"
+  aria-labelledby="about-heading"
+  class="mx-auto flex max-w-300 flex-col gap-10 px-6 pt-20 pb-16 md:px-12 md:pt-35 md:pb-30 lg:flex-row lg:gap-20"
+>
+  <header data-reveal class="min-w-0 lg:flex-1">
+    <SectionLabel index={index} label={label} />
+    <h2
+      id="about-heading"
+      class="mt-5 text-[34px] leading-[1.05] font-semibold tracking-[-0.03em] md:text-[48px]"
+    >
+      {heading}
+    </h2>
+  </header>
+
+  <div class="min-w-0 lg:flex-[1.6]">
+    <p class="text-[17px] leading-[1.65] text-fg-soft md:text-[20px]">{lead}</p>
+    <p class="mt-5.5 text-[17px] leading-[1.7] text-muted md:text-[18px]">
+      {body}
+    </p>
+    <FactList facts={facts} class="mt-12" />
+  </div>
+</section>
