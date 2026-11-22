@@ -21,6 +21,7 @@ const projects = (await getProjects(lang)).map(({ slug, data }) => ({
   kind: data.kind,
   summary: data.summary,
   stack: data.stack,
+  since: data.since,
   liveUrl: data.liveUrl,
   repoUrl: data.repoUrl,
   caseStudyHref: data.caseStudy
@@ -29,6 +30,8 @@ const projects = (await getProjects(lang)).map(({ slug, data }) => ({
   cover: data.cover,
   coverAlt: data.coverAlt,
   labels: {
+    since: t("projects.since"),
+    stack: t("projects.stack"),
     live: t("projects.live"),
     repo: t("projects.repo"),
     caseStudy: t("projects.caseStudy"),

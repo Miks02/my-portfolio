@@ -27,7 +27,7 @@ export const ui = {
 
     "hero.title": "Software Engineer",
     "hero.text":
-      "I build full-stack web application with Angular and ASP.NET Core. Sometimes i use traditional stacks like ASP.NET Razor Pages or MVC.",
+      "I build full-stack web applications with Angular and ASP.NET Core. Sometimes i use traditional stacks like ASP.NET Razor Pages or MVC. For static sites i use Astro.",
     "hero.cta": "Get in touch",
     "hero.resume": "Resume",
     "hero.portraitAlt": "Portrait of Milan Nikolić",
@@ -35,7 +35,7 @@ export const ui = {
     "stack.label": "Tech stack",
 
     "about.label": "About",
-    "about.heading": "One developer, the whole stack.",
+    "about.heading": "One developer, the whole stack",
     "about.lead":
       "I'm a software engineer from Belgrade who works across the whole stack with Angular and ASP.NET Core. Most of my projects use a feature-first or vertical slice architecture. It keeps the code easy to maintain, and it's a great fit for apps I build on my own.",
     "about.body":
@@ -53,6 +53,8 @@ export const ui = {
     "projects.heading": "Things I've built and shipped",
     "projects.note":
       "Both are deployed and in use, built with the same Angular + .NET foundation.",
+    "projects.since": "Since",
+    "projects.stack": "Stack",
     "projects.live": "Live site",
     "projects.repo": "GitHub",
     "projects.caseStudy": "Case study",

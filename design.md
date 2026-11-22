@@ -141,9 +141,10 @@ Left: section label + H2. Right: lead paragraph, a second paragraph in `text-mut
 ### Projects
 
 - Header row: label + H2 on the left, a short note (max ~340px) on the right, hairline below.
-- `ProjectRow` text column: mono "01 / kind", H3, summary, a mono stack line in `text-subtle`, then links. "Live site ↗" has a 2px accent underline and "GitHub ↗" a 2px `line-strong` underline. "Case study →" appears only when the project has one.
-- `ProjectRow` screenshot column: `bg-surface rounded-xs`. A cover keeps its own aspect ratio (no `object-cover` cropping, which upscales and blurs UI screenshots); use the same size for all covers so rows match (currently 1914×965). Covers are served as WebP at quality 90 with widths up to the original. With no image, the column shows a 16:10 frame with a centered mono label like `[codewithmixx screenshot]`.
-- Rows are separated by hairlines. On mobile the screenshot sits above the text.
+- `ProjectRow` text column: mono "01 / kind", H3, summary. Nothing else.
+- `ProjectRow` card (wide column): `rounded-md border border-line bg-ink-2`, `overflow-hidden`. Top: the cover, flush with the card edges, keeping its own aspect ratio (no `object-cover`; covers are WebP at quality 90 with widths up to the original; all covers the same size, currently 1914×965). With `liveUrl` the cover links to the live site (new tab, `hover:opacity-70 active:scale-95`). With no cover, a 16:10 `bg-surface` frame with a centered mono label like `[CodeWithMixx screenshot]`.
+- Below the cover, after a hairline: a `<dl>` with "Since" (`since` from the frontmatter, e.g. `Dec 2025`; hidden when missing) and "Stack" (mono, `text-subtle`, ` · `-separated), labels mono 12px uppercase `text-dim`; side by side from `sm`. Then a hairline and the links: "Live site ↗" with a 2px accent underline, "GitHub ↗" with a 2px `line-strong` underline, "Case study →" only when the project has one.
+- Rows are separated by hairlines. On mobile the text comes first and the card below it.
 
 ### Experience & Education
 

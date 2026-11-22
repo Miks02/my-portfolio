@@ -28,6 +28,7 @@ export const site = {
     { name: "Angular", icon: "angular" },
     { name: "TypeScript", icon: "typescript" },
     { name: "Tailwind", icon: "tailwind" },
+    { name: "Astro", icon: "astro" },
     { name: "C#", icon: "csharp" },
     { name: "ASP.NET Core", icon: "dotnet" },
     { name: "Entity Framework Core", icon: "efcore" },

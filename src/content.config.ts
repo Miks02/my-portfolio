@@ -15,6 +15,8 @@ const projects = defineCollection({
       repoUrl: z.url().optional(),
       cover: image().optional(),
       coverAlt: z.string().optional(),
+      /** Project start, shown as "Since …" (e.g. "Dec 2025"). */
+      since: z.string().optional(),
       caseStudy: z.boolean().default(false),
     }),
 });

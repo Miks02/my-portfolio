@@ -2,6 +2,7 @@
 // Fills are stripped and the icon renders in `currentColor`, which the strip sets to the brand color (design.md exception).
 
 import angular from "devicon/icons/angular/angular-plain.svg?raw";
+import astro from "devicon/icons/astro/astro-plain.svg?raw";
 import csharp from "devicon/icons/csharp/csharp-plain.svg?raw";
 import dotnet from "devicon/icons/dotnetcore/dotnetcore-plain.svg?raw";
 import efcore from "devicon/icons/entityframeworkcore/entityframeworkcore-plain.svg?raw";
@@ -17,6 +18,7 @@ const icons = {
   angular: { svg: angular, brand: "#DD0031" },
   typescript: { svg: typescript, brand: "#3178C6" },
   tailwind: { svg: tailwind, brand: "#38BDF8" },
+  astro: { svg: astro, brand: "#FF5D01" },
   csharp: { svg: csharp, brand: "#9B4F96" },
   dotnet: { svg: dotnet, brand: "#512BD4" },
   efcore: { svg: efcore, brand: "#512BD4" },
