@@ -2,7 +2,7 @@
 
 Personal portfolio of **Milan Nikolić**, software engineer (Angular + ASP.NET Core) from Belgrade.
 A one-pager (Hero → Tech stack → About → Projects → Other projects → Experience/Education → Contact) plus
-case-study pages per project. Static site deployed to Cloudflare Workers (static assets) at https://milannikolic.dev.
+case-study pages per project, in English (`/`) and Serbian, Latin script (`/sr/`). Static site deployed to Cloudflare Workers (static assets) at https://milannikolic.dev.
 
 Visual spec, tokens and component specs: @design.md
 
@@ -12,7 +12,7 @@ Visual spec, tokens and component specs: @design.md
 
 - **Astro 7** (static output, no adapter), **TypeScript strict**
 - **Tailwind CSS v4** via `@tailwindcss/vite`. Config lives in CSS (`@theme` in `src/styles/global.css`), so there is no `tailwind.config.js`
-- **Content Collections** (`src/content.config.ts`, `glob()` / `file()` loaders, Zod 4 schemas). Import `z` from `astro/zod` (the `astro:content` export is deprecated) and use `z.url()`, not `z.string().url()`
+- **Content Collections** (`src/content.config.ts`, `glob()` loaders, Zod 4 schemas). Import `z` from `astro/zod` (the `astro:content` export is deprecated) and use `z.url()`, not `z.string().url()`
 - **No UI framework.** Interactivity is small vanilla TS `<script>`s in Astro components
 - Tech-stack logos: `devicon` (devDependency, SVGs imported `?raw` and inlined at build time, no client JS)
 - Fonts self-hosted via Fontsource: `@fontsource-variable/schibsted-grotesk`, `@fontsource-variable/jetbrains-mono`
@@ -47,27 +47,29 @@ src/
   components/
     layout/   Navbar.astro  Footer.astro  SkipLink.astro
     sections/ Hero.astro  TechStack.astro  About.astro  Projects.astro  OtherProjects.astro  Experience.astro  Contact.astro
-    ui/       Button.astro  TextLink.astro  SectionLabel.astro  PortraitRing.astro
+    ui/       Button.astro  TextLink.astro  SectionLabel.astro  PortraitRing.astro  LanguageSwitcher.astro
               ProjectRow.astro  OtherProjectCard.astro  TimelineItem.astro  FactList.astro
   content/
-    projects/en/codewithmixx.md   # frontmatter = card data, body = case study
-    projects/en/mixxfit.md
-    experience/en.json
-    other-projects/en.json        # cards for older/smaller projects (title, summary, stack, repoUrl, cover)
+    projects/{en,sr}/*.md         # one file per project per language; frontmatter = card data, body = case study
+    experience/{en,sr}.json       # { "items": [...] }, one file per language
+    other-projects/{en,sr}.json   # { "items": [...] }, cards for older/smaller projects
   content.config.ts
   data/
     site.ts                   # non-translatable: name, email, URLs, socials, tech stack list, isPlaceholder()
     techIcons.ts              # devicon SVGs (?raw) + brand colors for the tech-stack strip
-    collections.ts            # getProjects(lang), getExperience(lang): the only place that reads collections
+    collections.ts            # getProjects/getExperience/getOtherProjects(lang): the only place that reads collections
   i18n/
-    ui.ts                     # all UI strings, keyed by locale: { en: {...} }
-    utils.ts                  # getLang(), useTranslations(lang) → t(key), localizePath(lang, path)
+    ui.ts                     # languages (name, htmlLang, ogLocale) + all UI strings: { en: {...}, sr: {...} }
+    utils.ts                  # getLang(), useTranslations(lang) → t(key), localizePath(), getAlternatePath()
   layouts/
-    BaseLayout.astro          # <html lang>, meta/OG, fonts, global.css, Navbar, Footer, reveal script
-  pages/
-    index.astro
+    BaseLayout.astro          # <html lang>, meta/OG/hreflang, fonts, global.css, Navbar, Footer, reveal script
+  views/
+    HomePage.astro            # the home page, shared by both languages (reads the locale from the URL)
+    NotFoundPage.astro
+  pages/                      # thin route files, one per language, that render a view
+    index.astro  404.astro
+    sr/index.astro  sr/404.astro
     projects/[slug].astro     # case studies (not built yet: no project has caseStudy: true)
-    404.astro
   scripts/
     navbar.ts  reveal.ts
   styles/
@@ -79,67 +81,38 @@ public/
 Rules:
 - **Sections get their data from outside.** No copy is hardcoded in `sections/*`. Strings come from `i18n/ui.ts`, data from content collections or `site.ts`.
 - One component per file, PascalCase, typed `interface Props`, no `any`.
-- Pages (`pages/*`) are the "smart" layer: they call `t()`, `site` and the collection helpers and pass plain props down. Sections and `ui/*` are presentational.
+- Views (`views/*`) are the "smart" layer: they call `t()`, `site` and the collection helpers and pass plain props down. Sections and `ui/*` are presentational.
+- Pages (`pages/*`, `pages/sr/*`) are thin: they only render a view, so each page exists once and the locale comes from the folder (`Astro.currentLocale`).
 - Placeholders in `site.ts` start with `[`; filter them with `isPlaceholder()` so no broken links render.
 - Large screens: from `3xl` (2560px) the whole page is zoomed 4/3 in `global.css` (see design.md, Layout). Don't add per-component `3xl:` sizes; do add the zoomed size to raster image `sizes`.
 - Client JS stays tiny and colocated (a `<script>` in the component, or `src/scripts/*.ts` imported from it). No libraries for scroll, animation or DOM work.
 
 ### Content collections (`src/content.config.ts`)
 
-```ts
-import { defineCollection } from "astro:content";
-import { file, glob } from "astro/loaders";
-import { z } from "astro/zod";
-
-const projects = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      kind: z.string(),
-      order: z.number(),
-      summary: z.string(),
-      stack: z.array(z.string()),
-      liveUrl: z.url().optional(),
-      repoUrl: z.url().optional(),
-      cover: image().optional(),
-      coverAlt: z.string().optional(),
-      caseStudy: z.boolean().default(false),
-    }),
-});
-
-const experience = defineCollection({
-  loader: file("./src/content/experience/en.json"),
-  schema: z.object({
-    id: z.string(),
-    period: z.string(),
-    title: z.string(),
-    org: z.string(),
-    detail: z.string().optional(),
-    current: z.boolean().default(false),
-    order: z.number(),
-  }),
-});
-
-export const collections = { projects, experience };
-```
-
-- The locale is the first folder of the entry id (`en/codewithmixx`) and the slug is the rest. Keep this in one helper (`getProjects(lang)`), not repeated across pages.
+- `projects`: `glob("**/*.md")` in `content/projects/`. Frontmatter: `title`, `kind`, `order`, `summary`, `stack`, optional `liveUrl`, `repoUrl`, `cover`, `coverAlt`, `since`, plus `legacy` and `caseStudy` (both default `false`).
+- `experience` and `otherProjects`: `glob("*.json")`, one file per language (`en.json`, `sr.json`) shaped `{ "items": [...] }`. The entry id is the locale, so `getExperience(lang)` is a `getEntry("experience", lang)`. A missing language file throws, so the build fails instead of showing the wrong language.
+- The collection helpers return plain interfaces (`ExperienceItem`, `OtherProject` in `collections.ts`) that TypeScript checks against the schemas.
+- For projects, the locale is the first folder of the entry id (`en/codewithmixx`) and the slug is the rest. Keep this in one helper (`getProjects(lang)`), not repeated across pages.
 - If `cover` is missing, render the empty 16:10 screenshot frame. A cover keeps its own aspect ratio, never `object-cover` (see design.md).
 - If `liveUrl` or `repoUrl` is missing, don't render that link.
 
-### i18n (English only for now, ready for Serbian)
+### i18n (English + Serbian)
 
-- `astro.config.mjs`: `i18n: { defaultLocale: "en", locales: ["en"], routing: { prefixDefaultLocale: false } }`.
-- Every user-facing UI string lives in `src/i18n/ui.ts`.
-- Adding Serbian later means: add `"sr"` to locales, `sr` keys in `ui.ts`, `content/projects/sr/*`, `experience/sr.json` and `src/pages/sr/…`. It should need no component changes. The `experience` collection uses `file()`, which reads one file, so `content.config.ts` and `getExperience()` need a small change to load `sr.json` too.
-- Translatable text (including the location "Belgrade, Serbia", key `common.location`) goes in `ui.ts`; only non-translatable data goes in `site.ts`.
-- Internal links that depend on the locale go through `localizePath(lang, path)`.
-- `<html lang>` comes from the current locale.
+- Locales: `en` (default, at `/`) and `sr` (Serbian, Latin script, at `/sr/`). `astro.config.mjs`: `locales: ["en", "sr"]`, `prefixDefaultLocale: false`. Keep it in sync with `languages` in `ui.ts`.
+- Every user-facing UI string lives in `src/i18n/ui.ts`. `sr` is typed `Record<UIKey, string>`, so a key that exists in `en` but not in `sr` fails `npm run check`. There is no silent English fallback.
+- Translatable text (including the location, key `common.location`) goes in `ui.ts`; only non-translatable data goes in `site.ts`.
+- Content per language: `content/projects/<lang>/*.md`, `experience/<lang>.json`, `other-projects/<lang>.json`. Dates in content are written per language (`Dec 2025` / `dec 2025`; Serbian months are lowercase and abbreviated, which avoids grammatical cases after "Od").
+- Serbian copy addresses the reader formally ("Vi"). Common dev terms stay in English (full-stack, stack, frontend, feature-first).
+- Internal links that depend on the locale go through `localizePath(lang, path)`. The same page in another language comes from `getAlternatePath(pathname, lang)` (used by hreflang and the language switcher).
+- A new page means a view in `views/` plus a thin route file in `pages/` and in `pages/sr/`. For a dynamic route (case studies), each route file has its own `getStaticPaths` calling `getProjects("en")` / `getProjects("sr")`.
+- `BaseLayout` sets `<html lang>` (`sr-Latn` for Serbian), `og:locale` (`en_US` / `sr_RS`) plus `og:locale:alternate`, and `<link rel="alternate" hreflang>` for every language plus `x-default` (English). Pages with `noindex` (404) skip canonical and hreflang.
+- No automatic redirect by browser language: every URL always shows one language, and visitors switch with the `EN / SR` switcher in the navbar (see design.md).
+- The Serbian 404: Astro writes `pages/sr/404.astro` to `dist/sr/404/index.html`, and the small `localized404Pages` integration in `astro.config.mjs` moves it to `dist/sr/404.html`, where Cloudflare's `404-page` handling finds it for unknown `/sr/...` URLs.
+- Adding another language: add it to `languages` and `ui` in `ui.ts`, `locales` (and the sitemap `i18n` map and `localized404Pages`) in `astro.config.mjs`, its content files, and `pages/<lang>/`. No component changes.
 
 ### Case studies (`/projects/[slug]`)
 
-- `getStaticPaths` returns only projects with `caseStudy: true`.
+- `getStaticPaths` returns only projects with `caseStudy: true`, for that route file's language.
 - The home-page `ProjectRow` links to the case study only when it exists.
 
 ---
@@ -157,6 +130,7 @@ export const collections = { projects, experience };
 - `BaseLayout` takes `title`, `description` and an optional `ogImage`. Default title: "Milan Nikolić | Software Engineer". No em dashes anywhere in copy.
 - Production domain: **https://milannikolic.dev** (`site` in `astro.config.mjs`). Sitemap, canonical, absolute OG URLs and `public/robots.txt` depend on it. `BaseLayout` falls back to the request URL if `site` is ever missing.
 - Include canonical, OG + Twitter tags, `theme-color` `#11161E`, `@astrojs/sitemap`, and a `public/robots.txt` that points to the sitemap.
+- The sitemap leaves out 404 pages and lists the language versions of each URL (`i18n` option of `@astrojs/sitemap`).
 - Add JSON-LD `Person` on the home page (name, jobTitle, url, sameAs), using real data only.
 
 ## Performance
@@ -172,7 +146,7 @@ export const collections = { projects, experience };
 - Config lives in `wrangler.jsonc` at the repo root:
   - `name` must match the Worker's name in the dashboard (`my-portfolio`), or a new Worker gets created instead of updating this one.
   - `assets.directory` is `./dist`.
-  - `assets.not_found_handling: "404-page"` makes unknown URLs return `dist/404.html` (from `src/pages/404.astro`) with a 404 status. Without it they return an empty 404.
+  - `assets.not_found_handling: "404-page"` makes unknown URLs return `dist/404.html` (from `src/pages/404.astro`) with a 404 status (unknown `/sr/...` URLs get `dist/sr/404.html`). Without it they return an empty 404.
 - Static output only. No Worker script (`main`) and no `@astrojs/cloudflare` adapter unless server features are needed.
 - Domains (Worker → Settings → Domains & Routes): `milannikolic.dev` and `www.milannikolic.dev` are Custom Domains; the DNS zone is on Cloudflare. The canonical host is `milannikolic.dev`; `www` should 301 to it via a Cloudflare Redirect Rule ("Redirect from WWW to root"), which is dashboard config, not code. The `*.workers.dev` URL can stay on; canonical tags point to the domain.
 - `public/_headers` (Workers static assets apply it):

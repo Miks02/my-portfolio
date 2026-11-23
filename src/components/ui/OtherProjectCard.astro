@@ -11,19 +11,30 @@ interface Props {
   stack: string[];
   repoUrl?: string;
   cover?: ImageMetadata;
+  /** Alt text for the cover, e.g. "Flower Shop screenshot". */
+  coverAlt: string;
   repoLabel: string;
   sinceLabel: string;
 }
 
-const { title, since, summary, stack, repoUrl, cover, repoLabel, sinceLabel } =
-  Astro.props;
+const {
+  title,
+  since,
+  summary,
+  stack,
+  repoUrl,
+  cover,
+  coverAlt,
+  repoLabel,
+  sinceLabel,
+} = Astro.props;
 ---
 
 <article class="flex flex-col overflow-hidden rounded-md border border-line bg-ink-2">
   {cover ? (
     <Image
       src={cover}
-      alt={`${title} screenshot`}
+      alt={coverAlt}
       widths={[400, 700, 1000]}
       sizes="(min-width: 2560px) 470px, (min-width: 1024px) 352px, (min-width: 768px) 324px, calc(100vw - 48px)"
       quality={90}

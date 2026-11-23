@@ -3,7 +3,14 @@ import "../styles/global.css";
 import Footer from "../components/layout/Footer.astro";
 import Navbar from "../components/layout/Navbar.astro";
 import SkipLink from "../components/layout/SkipLink.astro";
-import { getLang, useTranslations } from "../i18n/utils";
+import { defaultLang, languages, type Lang } from "../i18n/ui";
+import {
+  getAlternatePath,
+  getLang,
+  localizePath,
+  useTranslations,
+} from "../i18n/utils";
+import type { LanguageLink } from "../components/ui/LanguageSwitcher.astro";
 
 interface Props {
   title?: string;
@@ -14,6 +21,8 @@ interface Props {
   jsonLd?: Record<string, unknown>;
   /** Highlights the nav link of the section in view (home page only). */
   trackSections?: boolean;
+  /** For pages that shouldn't be in search results (404): adds `noindex`, skips canonical and hreflang. */
+  noindex?: boolean;
 }
 
 const lang = getLang(Astro.currentLocale);
@@ -25,16 +34,44 @@ const {
   ogImage = "/og.png",
   jsonLd,
   trackSections = false,
+  noindex = false,
 } = Astro.props;
 
 // Fall back to the request URL if `site` is ever missing, so new URL() never gets an undefined base.
 const base = Astro.site ?? Astro.url;
 const canonical = new URL(Astro.url.pathname, base);
 const ogImageUrl = new URL(ogImage, base);
+
+// The same page in every language, for <link rel="alternate" hreflang>. Search engines use these
+// to show each visitor the right language and to treat /x and /sr/x as one page, not duplicates.
+const allLangs = Object.keys(languages) as Lang[];
+const alternates = allLangs.map((altLang) => ({
+  hreflang: altLang,
+  href: new URL(getAlternatePath(Astro.url.pathname, altLang), base),
+}));
+// x-default: the version for visitors whose language isn't on the list.
+const defaultHref = new URL(
+  getAlternatePath(Astro.url.pathname, defaultLang),
+  base,
+);
+const otherOgLocales = allLangs
+  .filter((altLang) => altLang !== lang)
+  .map((altLang) => languages[altLang].ogLocale);
+
+// Language switcher in the navbar. A 404 page has no counterpart, so it links to that language's home.
+const languageLinks: LanguageLink[] = allLangs.map((altLang) => ({
+  code: altLang,
+  name: languages[altLang].name,
+  htmlLang: languages[altLang].htmlLang,
+  href: noindex
+    ? localizePath(altLang, "/")
+    : getAlternatePath(Astro.url.pathname, altLang),
+  current: altLang === lang,
+}));
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={languages[lang].htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,7 +81,17 @@ const ogImageUrl = new URL(ogImage, base);
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        {alternates.map(({ hreflang, href }) => (
+          <link rel="alternate" hreflang={hreflang} href={href} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={defaultHref} />
+      </>
+    )}
     <meta name="theme-color" content="#11161E" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -60,18 +107,27 @@ const ogImageUrl = new URL(ogImage, base);
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content={lang} />
+    <meta property="og:locale" content={languages[lang].ogLocale} />
+    {otherOgLocales.map((locale) => (
+      <meta property="og:locale:alternate" content={locale} />
+    ))}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {jsonLd && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonLd)}
+      />
+    )}
   </head>
   <body>
     <SkipLink label={t("a11y.skip")} />
-    <Navbar trackSections={trackSections} />
+    <Navbar trackSections={trackSections} languageLinks={languageLinks} />
     <main id="main">
       <slot />
     </main>

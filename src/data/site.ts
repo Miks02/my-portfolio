@@ -21,7 +21,6 @@ export const site = {
   socials: {
     github: "https://github.com/Miks02",
     linkedin: "https://www.linkedin.com/in/milan-nikoli%C4%87-8abb88254/",
-    codewithmixx: "https://codewithmixx.com",
   },
   // `icon` is a key in src/data/techIcons.ts (devicon SVGs, inlined at build time).
   techStack: [

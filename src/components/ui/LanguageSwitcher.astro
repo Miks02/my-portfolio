@@ -1,0 +1,62 @@
+---
+// "EN / SR": the current language as plain text, the others as links to the same page in that language.
+// Font size comes from the parent (13px in the desktop bar, 15px in the mobile menu).
+
+export interface LanguageLink {
+  /** Shown as the visible label, uppercase (e.g. "sr"). */
+  code: string;
+  /** The language's own name, for screen readers (e.g. "Srpski"). */
+  name: string;
+  /** BCP 47 tag for the `lang` attribute (e.g. "sr-Latn"). */
+  htmlLang: string;
+  href: string;
+  current: boolean;
+}
+
+interface Props {
+  links: LanguageLink[];
+  /** Accessible name of the group, e.g. "Language". */
+  label: string;
+  class?: string;
+}
+
+const { links, label, class: className } = Astro.props;
+---
+
+<div
+  role="group"
+  aria-label={label}
+  class:list={[
+    "flex items-center font-mono tracking-[0.06em] uppercase",
+    className,
+  ]}
+>
+  {links.map((link, i) => (
+    <>
+      {i > 0 && (
+        <span aria-hidden="true" class="text-dim">
+          /
+        </span>
+      )}
+      {link.current ? (
+        <span
+          aria-current="true"
+          lang={link.htmlLang}
+          class="inline-flex min-h-11 min-w-11 items-center justify-center text-fg"
+        >
+          {link.code}
+        </span>
+      ) : (
+        <a
+          href={link.href}
+          hreflang={link.code}
+          lang={link.htmlLang}
+          aria-label={link.name}
+          class="inline-flex min-h-11 min-w-11 items-center justify-center text-fg-soft/80 transition-colors duration-200 hover:text-fg"
+        >
+          {link.code}
+        </a>
+      )}
+    </>
+  ))}
+</div>
