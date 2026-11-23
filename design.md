@@ -166,7 +166,7 @@ Full-bleed `bg-ink-2` band. Left: label + H2. Right: an `<ol>` with a 1px left r
 
 ### Contact
 
-Label, a large H2 (`clamp(44px,5.6vw,76px)`, 42px on mobile), a short paragraph, a large email link (30px, mobile 22px) with a 2px accent underline, then plain links to GitHub, LinkedIn and codewithmixx. No form.
+Label, a large H2 (`clamp(44px,5.6vw,76px)`, 42px on mobile), a short paragraph, a large email link (30px, mobile 22px) with a 2px accent underline, then plain links to GitHub and LinkedIn. No form.
 
 ### Footer
 

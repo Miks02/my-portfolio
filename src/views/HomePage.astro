@@ -56,7 +56,6 @@ const experience = (await getExperience(lang)).map((item) => ({
 const contactLinks = [
   { label: t("contact.github"), href: site.socials.github },
   { label: t("contact.linkedin"), href: site.socials.linkedin },
-  { label: t("contact.codewithmixx"), href: site.socials.codewithmixx },
 ].filter(({ href }) => !isPlaceholder(href));
 
 const otherProjects = (await getOtherProjects(lang)).map((item) => ({

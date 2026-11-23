@@ -85,7 +85,6 @@ const en = {
     "I'm looking for a full-time role, remote or on-site if it means relocating. Email is the quickest way to reach me.",
   "contact.github": "GitHub",
   "contact.linkedin": "LinkedIn",
-  "contact.codewithmixx": "CodeWithMixx",
 
   "notFound.title": "Page not found",
   "notFound.text": "This page doesn't exist or has moved.",
@@ -165,7 +164,6 @@ const sr: Record<UIKey, string> = {
     "Tražim posao sa punim radnim vremenom, na daljinu ili u kancelariji, čak i ako to znači preseljenje. Email je najbrži način da me kontaktirate.",
   "contact.github": "GitHub",
   "contact.linkedin": "LinkedIn",
-  "contact.codewithmixx": "CodeWithMixx",
 
   "notFound.title": "Stranica nije pronađena",
   "notFound.text": "Ova stranica ne postoji ili je premeštena.",
