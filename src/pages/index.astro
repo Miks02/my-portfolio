@@ -45,12 +45,12 @@ const projects = (await getProjects(lang)).map(({ slug, data }) => ({
   },
 }));
 
-const experience = (await getExperience(lang)).map(({ data }) => ({
-  period: data.period,
-  title: data.title,
-  org: data.org,
-  detail: data.detail,
-  current: data.current,
+const experience = (await getExperience(lang)).map((item) => ({
+  period: item.period,
+  title: item.title,
+  org: item.org,
+  detail: item.detail,
+  current: item.current,
 }));
 
 const contactLinks = [
@@ -59,13 +59,13 @@ const contactLinks = [
   { label: t("contact.codewithmixx"), href: site.socials.codewithmixx },
 ].filter(({ href }) => !isPlaceholder(href));
 
-const otherProjects = (await getOtherProjects(lang)).map(({ data }) => ({
-  title: data.title,
-  since: data.since,
-  summary: data.summary,
-  stack: data.stack,
-  repoUrl: data.repoUrl,
-  cover: data.cover,
+const otherProjects = (await getOtherProjects(lang)).map((item) => ({
+  title: item.title,
+  since: item.since,
+  summary: item.summary,
+  stack: item.stack,
+  repoUrl: item.repoUrl,
+  cover: item.cover,
 }));
 
 const person = {

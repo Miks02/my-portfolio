@@ -9,7 +9,8 @@ export default defineConfig({
   site: "https://milannikolic.dev",
   i18n: {
     defaultLocale: "en",
-    locales: ["en"],
+    // Keep in sync with `languages` in src/i18n/ui.ts. English stays at "/", Serbian lives under "/sr/".
+    locales: ["en", "sr"],
     routing: { prefixDefaultLocale: false },
   },
   // lastmod = build date, so search engines see when the site last changed.

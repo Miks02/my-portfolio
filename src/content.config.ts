@@ -1,5 +1,5 @@
 import { defineCollection } from "astro:content";
-import { file, glob } from "astro/loaders";
+import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 const projects = defineCollection({
@@ -23,32 +23,43 @@ const projects = defineCollection({
     }),
 });
 
+// One JSON file per language (`en.json`, `sr.json`); the entry id is the file name, i.e. the locale.
+// Each file is `{ "items": [...] }`.
 const experience = defineCollection({
-  loader: file("./src/content/experience/en.json"),
+  loader: glob({ pattern: "*.json", base: "./src/content/experience" }),
   schema: z.object({
-    id: z.string(),
-    period: z.string(),
-    title: z.string(),
-    org: z.string(),
-    detail: z.string().optional(),
-    current: z.boolean().default(false),
-    order: z.number(),
+    items: z.array(
+      z.object({
+        id: z.string(),
+        period: z.string(),
+        title: z.string(),
+        org: z.string(),
+        detail: z.string().optional(),
+        current: z.boolean().default(false),
+        order: z.number(),
+      }),
+    ),
   }),
 });
 
-// Smaller/older projects shown as cards under the main projects. `cover` is relative to the JSON file.
+// Smaller/older projects shown as cards under the main projects. One file per language, like experience.
+// `cover` is relative to the JSON file.
 const otherProjects = defineCollection({
-  loader: file("./src/content/other-projects/en.json"),
+  loader: glob({ pattern: "*.json", base: "./src/content/other-projects" }),
   schema: ({ image }) =>
     z.object({
-      id: z.string(),
-      order: z.number(),
-      title: z.string(),
-      since: z.string().optional(),
-      summary: z.string(),
-      stack: z.array(z.string()),
-      repoUrl: z.url().optional(),
-      cover: image().optional(),
+      items: z.array(
+        z.object({
+          id: z.string(),
+          order: z.number(),
+          title: z.string(),
+          since: z.string().optional(),
+          summary: z.string(),
+          stack: z.array(z.string()),
+          repoUrl: z.url().optional(),
+          cover: image().optional(),
+        }),
+      ),
     }),
 });
 
