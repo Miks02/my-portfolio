@@ -11,7 +11,7 @@
     {
       "id": "tutor-codewithmixx",
       "period": "Ongoing",
-      "title": "Programming tutor",
+      "title": "Online teaching and mentoring",
       "org": "CodeWithMixx",
       "detail": "One-on-one online lessons for IT students",
       "order": 2
@@ -29,7 +29,7 @@
       "period": "May - Jun 2025",
       "title": "Software Engineering Intern",
       "org": "Comtrade",
-      "detail": "Angular + .NET",
+      "detail": "A school information system in Angular and .NET, built in a team of nine. I learned both technologies on the fly, did most of the development and helped make ours one of the top teams in the program.",
       "order": 4
     },
     {
@@ -37,7 +37,7 @@
       "period": "Jun - Jul 2024",
       "title": "Frontend Developer, small project",
       "org": "ZNAMO.net",
-      "detail": "HTML, CSS, JavaScript and PHP",
+      "detail": "Helped build the website of Stanko LLC, a Chicago dealer of PVC windows and doors, with HTML, CSS, JavaScript and PHP.",
       "order": 5
     }
   ]

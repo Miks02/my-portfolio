@@ -82,7 +82,7 @@ const en = {
   "contact.label": "Contact",
   "contact.heading": "Have a role or a project in mind?",
   "contact.text":
-    "I'm looking for a full-time role, remote or on-site if it means relocating. Email is the quickest way to reach me.",
+    "I'm looking for a full-time role, remote or on-site. Email is the quickest way to reach me.",
   "contact.github": "GitHub",
   "contact.linkedin": "LinkedIn",
 
@@ -161,7 +161,7 @@ const sr: Record<UIKey, string> = {
   "contact.label": "Kontakt",
   "contact.heading": "Imate posao ili projekat na umu?",
   "contact.text":
-    "Tražim posao sa punim radnim vremenom, na daljinu ili u kancelariji, čak i ako to znači preseljenje. Email je najbrži način da me kontaktirate.",
+    "Tražim posao sa punim radnim vremenom, na daljinu ili u kancelariji. Email je najbrži način da me kontaktirate.",
   "contact.github": "GitHub",
   "contact.linkedin": "LinkedIn",
 

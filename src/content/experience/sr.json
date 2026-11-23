@@ -11,7 +11,7 @@
     {
       "id": "tutor-codewithmixx",
       "period": "U toku",
-      "title": "Instruktor programiranja",
+      "title": "Online predavanje i mentorstvo",
       "org": "CodeWithMixx",
       "detail": "Online časovi jedan na jedan za studente IT-a",
       "order": 2
@@ -29,7 +29,7 @@
       "period": "maj - jun 2025",
       "title": "Praktikant, softverski inženjering",
       "org": "Comtrade",
-      "detail": "Angular + .NET",
+      "detail": "Školski informacioni sistem u Angularu i .NET-u, u timu od devet ljudi. Obe tehnologije sam naučio u hodu, odradio najveći deo razvoja i doprineo da naš tim bude među najboljima na praksi.",
       "order": 4
     },
     {
@@ -37,7 +37,7 @@
       "period": "jun - jul 2024",
       "title": "Frontend developer, manji projekat",
       "org": "ZNAMO.net",
-      "detail": "HTML, CSS, JavaScript i PHP",
+      "detail": "Učestvovao u izradi sajta za Stanko LLC, prodavca PVC prozora i vrata iz Čikaga, uz HTML, CSS, JavaScript i PHP.",
       "order": 5
     }
   ]
