@@ -80,7 +80,8 @@ grep -rnE "purple|violet|indigo|bg-linear|bg-gradient|backdrop-blur|shadow-|roun
 
 ### Navbar (fixed)
 
-- Left: `Milan Nikolić` followed by an accent `.` (semibold). Right: About, Projects, Experience, Contact.
+- Left: `Milan Nikolić` followed by an accent `.` (semibold). Right: About, Projects, Experience, Contact, then the language switcher.
+- Logo and links go through `localizePath`, so on `/sr/` they point to `/sr/` and `/sr/#about`.
 - Links use the `/#about` form so they also work from case-study pages.
 - `html { scroll-behavior: smooth; scroll-padding-top: 88px }`. Turn smooth scrolling off under reduced motion.
 
@@ -95,6 +96,12 @@ grep -rnE "purple|violet|indigo|bg-linear|bg-gradient|backdrop-blur|shadow-|roun
 - Close on link click, Escape, the button, the scrim, or a resize to ≥ md. Lock body scroll while it's open. Move focus to the first link on open and back to the button on close.
 - Opening animation (none under reduced motion): the card grows open (max-height, 320ms), links fade/rise 6px one after another (45ms stagger), the scrim fades in (220ms), the X turns in from -90°.
 - The hero has 72px top padding on every size, so content clears both the desktop bar and the mobile card.
+
+**Language switcher** (`EN / SR`, `ui/LanguageSwitcher.astro`):
+- Mono uppercase, `tracking-[0.06em]`, codes separated by a `text-dim` "/" (`aria-hidden`). No flags, icons or dropdown.
+- The current language is plain text in `text-fg` with `aria-current="true"`. The others are links in `text-fg-soft/80 hover:text-fg` to the same page in that language (`getAlternatePath`; on 404 pages, that language's home), with `hreflang`, `lang` and an `aria-label` with the language's own name ("Srpski", "English"). Each code is a 44px target.
+- Desktop: 13px, right of the nav links, after a 1px × 20px `bg-line` divider. Wrapped in `role="group"` labelled "Language".
+- Mobile: 15px, the last row of the menu after a hairline, same 56px row height, codes left-aligned, no "→". The menu's opening max-height covers this fifth row.
 
 ### Hero
 

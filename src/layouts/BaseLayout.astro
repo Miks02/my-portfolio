@@ -4,7 +4,13 @@ import Footer from "../components/layout/Footer.astro";
 import Navbar from "../components/layout/Navbar.astro";
 import SkipLink from "../components/layout/SkipLink.astro";
 import { defaultLang, languages, type Lang } from "../i18n/ui";
-import { getAlternatePath, getLang, useTranslations } from "../i18n/utils";
+import {
+  getAlternatePath,
+  getLang,
+  localizePath,
+  useTranslations,
+} from "../i18n/utils";
+import type { LanguageLink } from "../components/ui/LanguageSwitcher.astro";
 
 interface Props {
   title?: string;
@@ -51,6 +57,17 @@ const defaultHref = new URL(
 const otherOgLocales = allLangs
   .filter((altLang) => altLang !== lang)
   .map((altLang) => languages[altLang].ogLocale);
+
+// Language switcher in the navbar. A 404 page has no counterpart, so it links to that language's home.
+const languageLinks: LanguageLink[] = allLangs.map((altLang) => ({
+  code: altLang,
+  name: languages[altLang].name,
+  htmlLang: languages[altLang].htmlLang,
+  href: noindex
+    ? localizePath(altLang, "/")
+    : getAlternatePath(Astro.url.pathname, altLang),
+  current: altLang === lang,
+}));
 ---
 
 <!doctype html>
@@ -110,7 +127,7 @@ const otherOgLocales = allLangs
   </head>
   <body>
     <SkipLink label={t("a11y.skip")} />
-    <Navbar trackSections={trackSections} />
+    <Navbar trackSections={trackSections} languageLinks={languageLinks} />
     <main id="main">
       <slot />
     </main>

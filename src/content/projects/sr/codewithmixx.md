@@ -2,7 +2,7 @@
 title: CodeWithMixx
 kind: Platforma za privatne časove
 order: 1
-summary: "Platforma iza mojih online časova programiranja jedan na jedan za studente IT-a. Angular frontend na ASP.NET Core API-ju, a naloge i sesije vode ASP.NET Identity i JWT + refresh tokeni. Napravio sam je iz dva razloga: da sebi olakšam posao online instruktora i da izoštrim veštine u alatima koje koristim."
+summary: "Platforma iza mojih online časova programiranja za studente IT-a. Angular frontend na ASP.NET Core API-ju, a naloge i sesije vode ASP.NET Identity i JWT + refresh tokeni. Napravio sam je iz dva razloga: da sebi olakšam posao i da izoštrim veštine u alatima koje koristim."
 stack: [Angular, ASP.NET Core, EF Core, PostgreSQL]
 liveUrl: https://codewithmixx.com
 repoUrl: "https://github.com/Miks02/code-with-mixx-web"

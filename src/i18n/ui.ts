@@ -30,6 +30,7 @@ const en = {
   "nav.contact": "Contact",
   "nav.open": "Open menu",
   "nav.close": "Close menu",
+  "nav.language": "Language",
 
   "common.location": "Belgrade, Serbia",
 
@@ -45,7 +46,7 @@ const en = {
   "about.label": "About",
   "about.heading": "One developer, the whole stack",
   "about.lead":
-    "I'm a software engineer from Belgrade who works across the whole stack with Angular and ASP.NET Core. Most of my projects use a feature-first or vertical slice architecture. It keeps the code easy to maintain, and it's a great fit for apps I build on my own.",
+    "Hi, my name is Milan. I build full-stack apps with Angular and ASP.NET Core. Most of my projects use a feature-first or vertical slice architecture. It keeps the code easy to maintain, which is a great fit for apps I build on my own.",
   "about.body":
     "I finished my Bachelor's degree in IT Engineering at ITS Belgrade in 2026 and I'm now doing a master's there. Alongside that I teach programming to other IT students via my own platform CodeWithMixx, which keeps me sharp on explaining why code is written the way it is.",
   "about.fact.basedIn.label": "Based in",
@@ -109,6 +110,7 @@ const sr: Record<UIKey, string> = {
   "nav.contact": "Kontakt",
   "nav.open": "Otvori meni",
   "nav.close": "Zatvori meni",
+  "nav.language": "Jezik",
 
   "common.location": "Beograd, Srbija",
 
@@ -124,7 +126,7 @@ const sr: Record<UIKey, string> = {
   "about.label": "O meni",
   "about.heading": "Jedan developer, ceo stack",
   "about.lead":
-    "Ja sam softverski inženjer iz Beograda i radim na celom stacku, uz Angular i ASP.NET Core. Većina mojih projekata koristi feature-first ili vertical slice arhitekturu. Tako kod ostaje lak za održavanje, a to odlično odgovara aplikacijama koje pravim sam.",
+    "Pozdrav, moje ime je Milan. Radim full-stack aplikacije uz Angular i ASP.NET Core. Većina mojih projekata koristi feature-first arhitekturu ili arhitekturu vertikalnih preseka. Tako kod ostaje lak za održavanje, što odlično odgovara aplikacijama koje pravim sam.",
   "about.body":
     "Osnovne studije IT inženjerstva na ITS-u u Beogradu završio sam 2026. godine, a sada sam tamo na master studijama. Paralelno predajem programiranje drugim studentima IT-a preko svoje platforme CodeWithMixx, što me tera da uvek umem da objasnim zašto se kod piše baš tako.",
   "about.fact.basedIn.label": "Lokacija",

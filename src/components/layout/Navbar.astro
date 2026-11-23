@@ -1,13 +1,18 @@
 ---
 import { site } from "../../data/site";
 import { getLang, localizePath, useTranslations } from "../../i18n/utils";
+import LanguageSwitcher, {
+  type LanguageLink,
+} from "../ui/LanguageSwitcher.astro";
 
 interface Props {
   /** Enables active-section tracking (home page only). */
   trackSections?: boolean;
+  /** EN / SR switcher; built in BaseLayout, which knows the current page's path. */
+  languageLinks: LanguageLink[];
 }
 
-const { trackSections = false } = Astro.props;
+const { trackSections = false, languageLinks } = Astro.props;
 
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
@@ -53,23 +58,31 @@ const links = [
       <span class="text-accent">.</span>
     </a>
 
-    <nav aria-label={t("nav.label")} class="hidden md:block">
-      <ul class="flex items-center gap-9 text-[15px] font-semibold">
-        {links.map(({ id, label }) => (
-          <li>
-            <a
-              href={localizePath(lang, `/#${id}`)}
-              data-nav-link={id}
-              class="group/link inline-flex min-h-11 items-center text-fg-soft/80 transition-colors duration-200 hover:text-fg aria-[current=true]:text-fg"
-            >
-              <span class="border-b-2 border-transparent pt-0.5 pb-0.5 group-aria-current/link:border-accent">
-                {label}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <div class="hidden items-center md:flex">
+      <nav aria-label={t("nav.label")}>
+        <ul class="flex items-center gap-9 text-[15px] font-semibold">
+          {links.map(({ id, label }) => (
+            <li>
+              <a
+                href={localizePath(lang, `/#${id}`)}
+                data-nav-link={id}
+                class="group/link inline-flex min-h-11 items-center text-fg-soft/80 transition-colors duration-200 hover:text-fg aria-[current=true]:text-fg"
+              >
+                <span class="border-b-2 border-transparent pt-0.5 pb-0.5 group-aria-current/link:border-accent">
+                  {label}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <span aria-hidden="true" class="mx-7 h-5 w-px bg-line"></span>
+      <LanguageSwitcher
+        links={languageLinks}
+        label={t("nav.language")}
+        class="-mr-3 text-[13px]"
+      />
+    </div>
 
     <button
       type="button"
@@ -125,6 +138,16 @@ const links = [
           </a>
         </li>
       ))}
+      <li
+        class="nav-item flex h-14 items-center"
+        style={`--i: ${links.length}`}
+      >
+        <LanguageSwitcher
+          links={languageLinks}
+          label={t("nav.language")}
+          class="-ml-3 text-[15px]"
+        />
+      </li>
     </ul>
   </nav>
 </header>
@@ -163,8 +186,8 @@ const links = [
       max-height: 0;
     }
     to {
-      /* Taller than the four 56px rows, so the growth looks continuous. */
-      max-height: 260px;
+      /* Taller than the five 56px rows (four links + language), so the growth looks continuous. */
+      max-height: 320px;
     }
   }
 
