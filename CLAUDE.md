@@ -73,7 +73,7 @@ src/
   styles/
     global.css
 public/
-  resume.pdf  og.png (1200×630)  favicon.svg / favicon.ico / apple-touch-icon.png (navy circle, coral MN)  robots.txt  _headers
+  Milan_Nikolic_CV.pdf (hero Resume button, `site.resumeUrl`)  og.png (1200×630)  favicon.svg / favicon.ico / apple-touch-icon.png (navy circle, coral MN)  robots.txt  _headers
 ```
 
 Rules:
@@ -203,5 +203,4 @@ export const collections = { projects, experience };
 
 ## Open placeholders
 
-- `public/resume.pdf` (the hero Resume button 404s until it exists)
 - Case studies: none written yet (`caseStudy: false` on both projects)

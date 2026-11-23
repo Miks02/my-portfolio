@@ -17,7 +17,7 @@ export function isPlaceholder(value: string): boolean {
 export const site = {
   name: "Milan Nikolić",
   email: "milan.miki.nikolic2002@gmail.com",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/Milan_Nikolic_CV.pdf",
   socials: {
     github: "https://github.com/Miks02",
     linkedin: "https://www.linkedin.com/in/milan-nikoli%C4%87-8abb88254/",

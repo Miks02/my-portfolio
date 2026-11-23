@@ -18,7 +18,6 @@ import OtherProjects from "../components/sections/OtherProjects.astro";
 const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
 
-// Only real profile URLs go into sameAs; placeholders are skipped until filled in.
 const sameAs = Object.values(site.socials).filter((url) => !isPlaceholder(url));
 
 const projects = (await getProjects(lang)).map(({ slug, data }) => ({
@@ -54,14 +53,12 @@ const experience = (await getExperience(lang)).map(({ data }) => ({
   current: data.current,
 }));
 
-// Placeholders (`[...]`) are skipped so no broken links are rendered.
 const contactLinks = [
   { label: t("contact.github"), href: site.socials.github },
   { label: t("contact.linkedin"), href: site.socials.linkedin },
   { label: t("contact.codewithmixx"), href: site.socials.codewithmixx },
 ].filter(({ href }) => !isPlaceholder(href));
 
-// Plain data for the cards; the section and card take exactly these fields.
 const otherProjects = (await getOtherProjects(lang)).map(({ data }) => ({
   title: data.title,
   since: data.since,
