@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "id": "masters-its",
+      "period": "nov 2026 - danas",
+      "title": "Master studije, informacione tehnologije",
+      "org": "ITS Beograd",
+      "current": true,
+      "order": 1
+    },
+    {
+      "id": "tutor-codewithmixx",
+      "period": "U toku",
+      "title": "Instruktor programiranja",
+      "org": "CodeWithMixx",
+      "detail": "Online časovi jedan na jedan za studente IT-a",
+      "order": 2
+    },
+    {
+      "id": "bsc-its",
+      "period": "okt 2026",
+      "title": "Osnovne studije, informacione tehnologije",
+      "org": "ITS Beograd",
+      "detail": "Diplomski rad ocenjen ocenom 10",
+      "order": 3
+    },
+    {
+      "id": "intern-comtrade",
+      "period": "maj - jun 2025",
+      "title": "Praktikant, softverski inženjering",
+      "org": "Comtrade",
+      "detail": "Angular + .NET",
+      "order": 4
+    },
+    {
+      "id": "znamo-freelance",
+      "period": "jun - jul 2024",
+      "title": "Frontend developer, manji projekat",
+      "org": "ZNAMO.net",
+      "detail": "HTML, CSS, JavaScript i PHP",
+      "order": 5
+    }
+  ]
+}

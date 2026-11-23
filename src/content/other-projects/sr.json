@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "id": "flower-shop",
+      "order": 1,
+      "title": "Flower Shop",
+      "since": "nov 2025",
+      "summary": "E-commerce aplikacija za firmu koja dostavlja cveće, napravljena po Clean Architecture principima uz CQRS. Administratori, dostavljači, kupci i gosti imaju svako svoje alate, od upravljanja katalogom i dodele dostava do praćenja porudžbina, poena lojalnosti i ocena.",
+      "stack": ["ASP.NET Core MVC", "EF Core", "HTMX", "SQL Server"],
+      "repoUrl": "https://github.com/Miks02/flower_shop_ecommerce_app",
+      "cover": "../../assets/projects/other/flower_shop.png"
+    },
+    {
+      "id": "dental-clinic",
+      "order": 2,
+      "title": "Sistem za stomatološku ordinaciju",
+      "since": "okt 2025",
+      "summary": "Sistem za upravljanje stomatološkom ordinacijom sa odvojenim ulogama za administratore, stomatologe i medicinske sestre. Pokriva kartone pacijenata, zakazivanje termina prema dostupnosti stomatologa, katalog usluga sa cenama i trajanjem, rasporede rada osoblja i izveštaje o obavljenim uslugama.",
+      "stack": ["ASP.NET Core MVC", "EF Core", "SQL Server"],
+      "repoUrl": "https://github.com/Miks02/Dentistry-Management-Web-App",
+      "cover": "../../assets/projects/other/dental_clinic.png"
+    },
+    {
+      "id": "cinema",
+      "order": 3,
+      "title": "Sistem za upravljanje bioskopom",
+      "since": "sep 2025",
+      "summary": "Sistem za upravljanje bioskopom inspirisan Cineplexx-om. Administratori planiraju projekcije i prave raspored sedišta u salama sa VIP zonama, osoblje vodi rezervacije na blagajni, a korisnici biraju sedišta na vizuelnoj mapi sale, rezervišu karte uz simulirano plaćanje i ocenjuju filmove koje su gledali.",
+      "stack": ["ASP.NET Core MVC", "EF Core", "SQL Server"],
+      "repoUrl": "https://github.com/Miks02/cinema-web-app",
+      "cover": "../../assets/projects/other/cinema.png"
+    },
+    {
+      "id": "sunglasses-shop",
+      "order": 4,
+      "title": "Prodavnica naočara za sunce",
+      "since": "avg 2025",
+      "summary": "Jednostavna e-commerce aplikacija u ASP.NET MVC-u sa korpom, plaćanjem, praćenjem porudžbina, recenzijama, ocenama i osnovnim sistemom tiketa.",
+      "stack": ["ASP.NET Core", "MVC", "SQL Server"],
+      "repoUrl": "https://github.com/Miks02/sunglasses-app-web-app",
+      "cover": "../../assets/projects/other/sunglasses.png"
+    },
+    {
+      "id": "catering",
+      "order": 5,
+      "title": "Ketering servis",
+      "since": "okt 2025",
+      "summary": "Moj jedini projekat u Spring Boot-u i Thymeleaf-u, napravljen da izgleda kao pravi, kompletan sajt, sa simuliranom korpom i plaćanjem.",
+      "stack": ["Java", "Spring Boot", "MySQL"],
+      "repoUrl": "https://github.com/Miks02/catering-service-web-app",
+      "cover": "../../assets/projects/other/catering.png"
+    },
+    {
+      "id": "znamo-redesign",
+      "order": 6,
+      "title": "Redizajn ZNAMO sajta",
+      "since": "jun 2025",
+      "summary": "Redizajn postojećeg sajta kompanije ZNAMO, sa Laravelom na backendu i čistim TypeScriptom i SCSS-om na frontendu.",
+      "stack": ["Laravel", "TypeScript", "MySQL"],
+      "repoUrl": "https://github.com/Miks02/znamo-redesign",
+      "cover": "../../assets/projects/other/znamo.png"
+    }
+  ]
+}

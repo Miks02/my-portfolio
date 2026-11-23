@@ -1,6 +1,6 @@
 ---
 import { site } from "../../data/site";
-import { getLang, useTranslations } from "../../i18n/utils";
+import { getLang, localizePath, useTranslations } from "../../i18n/utils";
 
 interface Props {
   /** Enables active-section tracking (home page only). */
@@ -9,7 +9,8 @@ interface Props {
 
 const { trackSections = false } = Astro.props;
 
-const t = useTranslations(getLang(Astro.currentLocale));
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
 
 const links = [
   { id: "about", label: t("nav.about") },
@@ -45,7 +46,7 @@ const links = [
 >
   <div class="mx-auto flex h-14.5 max-w-300 items-center justify-between gap-6 pr-2.5 pl-3 md:h-18 md:px-12">
     <a
-      href="/"
+      href={localizePath(lang, "/")}
       class="-mx-1 inline-flex min-h-11 items-center px-1 text-[17px] font-semibold tracking-[-0.01em] text-fg md:text-[18px]"
     >
       {site.name}
@@ -57,7 +58,7 @@ const links = [
         {links.map(({ id, label }) => (
           <li>
             <a
-              href={`/#${id}`}
+              href={localizePath(lang, `/#${id}`)}
               data-nav-link={id}
               class="group/link inline-flex min-h-11 items-center text-fg-soft/80 transition-colors duration-200 hover:text-fg aria-[current=true]:text-fg"
             >
@@ -113,7 +114,7 @@ const links = [
           style={`--i: ${i}`}
         >
           <a
-            href={`/#${id}`}
+            href={localizePath(lang, `/#${id}`)}
             data-nav-link={id}
             class="flex h-14 items-center justify-between text-[20px] font-semibold text-fg-soft/80 transition-colors duration-200 hover:text-fg aria-[current=true]:text-fg"
           >
