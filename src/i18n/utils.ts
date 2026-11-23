@@ -1,11 +1,4 @@
-import {
-  defaultLang,
-  defaultStrings,
-  languages,
-  ui,
-  type Lang,
-  type UIKey,
-} from "./ui";
+import { defaultLang, languages, ui, type Lang, type UIKey } from "./ui";
 
 function isLang(value: string | undefined): value is Lang {
   return value !== undefined && value in languages;
@@ -16,10 +9,10 @@ export function getLang(currentLocale: string | undefined): Lang {
   return isLang(currentLocale) ? currentLocale : defaultLang;
 }
 
-/** Returns t(key) for the given locale, falling back to the default locale's string. */
+/** Returns t(key) for the given locale. Every locale has every key (checked by TypeScript in ui.ts). */
 export function useTranslations(lang: Lang) {
   return function t(key: UIKey): string {
-    return ui[lang][key] ?? defaultStrings[key];
+    return ui[lang][key];
   };
 }
 

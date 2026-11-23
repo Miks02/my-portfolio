@@ -35,7 +35,7 @@ const en = {
 
   "hero.title": "Software Engineer",
   "hero.text":
-    "I build full-stack web applications with Angular and ASP.NET Core. Sometimes i use traditional stacks like ASP.NET Razor Pages or MVC. For static sites i use Astro.",
+    "I build full-stack web applications with Angular and ASP.NET Core. Sometimes I use traditional stacks like ASP.NET Razor Pages or MVC. For static sites I use Astro.",
   "hero.cta": "Get in touch",
   "hero.resume": "Resume",
   "hero.portraitAlt": "Portrait of Milan Nikolić",
@@ -73,7 +73,7 @@ const en = {
   "otherProjects.label": "Other projects",
   "otherProjects.heading": "More things I've built",
   "otherProjects.note":
-    "These are the projects that i used to work on while i was studying for my bachelor's degree. With Flower Shop being the most recent one.",
+    "These are the projects that I used to work on while I was studying for my bachelor's degree. With Flower Shop being the most recent one.",
 
   "experience.label": "Experience & Education",
   "experience.heading": "Where I've been learning and working",
@@ -93,9 +93,81 @@ const en = {
 
 export type UIKey = keyof typeof en;
 
-// Serbian strings come in a later step. Until then, missing keys fall back to English.
-// Once it's filled in, this becomes `Record<UIKey, string>` so a missing key fails `npm run check`.
-const sr: Partial<Record<UIKey, string>> = {};
+// Must have every key that `en` has; a missing one fails `npm run check`.
+const sr: Record<UIKey, string> = {
+  "meta.title": "Milan Nikolić | Softverski inženjer",
+  "meta.description":
+    "Softverski inženjer iz Beograda koji pravi web aplikacije od početka do kraja uz Angular i ASP.NET Core.",
+  "meta.jobTitle": "Softverski inženjer",
 
-export const ui: Record<Lang, Partial<Record<UIKey, string>>> = { en, sr };
-export const defaultStrings: Record<UIKey, string> = en;
+  "a11y.skip": "Preskoči na sadržaj",
+
+  "nav.label": "Glavna",
+  "nav.about": "O meni",
+  "nav.projects": "Projekti",
+  "nav.experience": "Iskustvo",
+  "nav.contact": "Kontakt",
+  "nav.open": "Otvori meni",
+  "nav.close": "Zatvori meni",
+
+  "common.location": "Beograd, Srbija",
+
+  "hero.title": "Softverski inženjer",
+  "hero.text":
+    "Pravim full-stack web aplikacije uz Angular i ASP.NET Core. Ponekad koristim i klasičnije pristupe, kao što su ASP.NET Razor Pages ili MVC. Za statičke sajtove koristim Astro.",
+  "hero.cta": "Javite se",
+  "hero.resume": "CV",
+  "hero.portraitAlt": "Portret Milana Nikolića",
+
+  "stack.label": "Tehnologije",
+
+  "about.label": "O meni",
+  "about.heading": "Jedan developer, ceo stack",
+  "about.lead":
+    "Ja sam softverski inženjer iz Beograda i radim na celom stacku, uz Angular i ASP.NET Core. Većina mojih projekata koristi feature-first ili vertical slice arhitekturu. Tako kod ostaje lak za održavanje, a to odlično odgovara aplikacijama koje pravim sam.",
+  "about.body":
+    "Osnovne studije IT inženjerstva na ITS-u u Beogradu završio sam 2026. godine, a sada sam tamo na master studijama. Paralelno predajem programiranje drugim studentima IT-a preko svoje platforme CodeWithMixx, što me tera da uvek umem da objasnim zašto se kod piše baš tako.",
+  "about.fact.basedIn.label": "Lokacija",
+  "about.fact.basedIn.value": "Beograd, Srbija",
+  "about.fact.availability.label": "Dostupnost",
+  "about.fact.availability.value": "Na daljinu ili u kancelariji",
+  "about.fact.english.label": "Engleski",
+  "about.fact.english.value": "C1–C2",
+  "about.fact.currently.label": "Trenutno",
+  "about.fact.currently.value": "Master iz IT-a, ITS Beograd",
+
+  "projects.label": "Projekti",
+  "projects.heading": "Ono što sam napravio i objavio",
+  "projects.note":
+    "CodeWithMixx i MixxFit su objavljeni i u upotrebi, a izgrađeni su na istoj Angular + .NET osnovi.",
+  "projects.since": "Od",
+  "projects.legacy": "Stara verzija",
+  "projects.stack": "Tehnologije",
+  "projects.live": "Sajt uživo",
+  "projects.repo": "GitHub",
+  "projects.caseStudy": "Studija slučaja",
+  "projects.screenshot": "Snimak ekrana: {title}",
+  "projects.back": "Svi projekti",
+
+  "otherProjects.label": "Ostali projekti",
+  "otherProjects.heading": "Još stvari koje sam napravio",
+  "otherProjects.note":
+    "Na ovim projektima sam radio tokom osnovnih studija. Najnoviji među njima je Flower Shop.",
+
+  "experience.label": "Iskustvo i obrazovanje",
+  "experience.heading": "Gde sam učio i radio",
+
+  "contact.label": "Kontakt",
+  "contact.heading": "Imate posao ili projekat na umu?",
+  "contact.text":
+    "Tražim posao sa punim radnim vremenom, na daljinu ili u kancelariji, čak i ako to znači preseljenje. Email je najbrži način da me kontaktirate.",
+  "contact.github": "GitHub",
+  "contact.linkedin": "LinkedIn",
+  "contact.codewithmixx": "CodeWithMixx",
+
+  "notFound.title": "Stranica nije pronađena",
+  "notFound.text": "Ova stranica ne postoji ili je premeštena.",
+  "notFound.home": "Nazad na početnu",
+};
+
+export const ui: Record<Lang, Record<UIKey, string>> = { en, sr };

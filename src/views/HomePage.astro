@@ -66,6 +66,7 @@ const otherProjects = (await getOtherProjects(lang)).map((item) => ({
   stack: item.stack,
   repoUrl: item.repoUrl,
   cover: item.cover,
+  coverAlt: t("projects.screenshot").replace("{title}", item.title),
 }));
 
 const person = {
