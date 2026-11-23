@@ -44,6 +44,8 @@ export default defineConfig({
       lastmod: new Date(),
       // 404 pages don't belong in the sitemap.
       filter: (page) => !page.endsWith("/404/"),
+      // Adds <xhtml:link hreflang> to each URL, pointing to the same page in the other languages.
+      i18n: { defaultLocale: "en", locales: { en: "en", sr: "sr" } },
     }),
     localized404Pages(["sr"]),
   ],
