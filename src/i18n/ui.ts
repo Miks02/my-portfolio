@@ -44,7 +44,7 @@ const en = {
   "stack.label": "Tech stack",
 
   "about.label": "About",
-  "about.heading": "One developer, the whole stack",
+  "about.heading": "Building apps end to end",
   "about.lead":
     "Hi, my name is Milan. I build full-stack apps with Angular and ASP.NET Core. Most of my projects use a feature-first or vertical slice architecture. It keeps the code easy to maintain, which is a great fit for apps I build on my own.",
   "about.body":
@@ -123,7 +123,7 @@ const sr: Record<UIKey, string> = {
   "stack.label": "Tehnologije",
 
   "about.label": "O meni",
-  "about.heading": "Jedan developer, ceo stack",
+  "about.heading": "Aplikacije od početka do kraja",
   "about.lead":
     "Pozdrav, moje ime je Milan. Radim full-stack aplikacije uz Angular i ASP.NET Core. Većina mojih projekata koristi feature-first arhitekturu ili arhitekturu vertikalnih preseka. Tako kod ostaje lak za održavanje, što odlično odgovara aplikacijama koje pravim sam.",
   "about.body":
